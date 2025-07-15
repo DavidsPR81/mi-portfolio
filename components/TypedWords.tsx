@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 
 const words = [
-  'Desarrollador FullStack',
-  'Analista de Datos y Ciberseguridad',
-  'Desarrollador Multiplataforma (Web y Móvil)',
-  'Especialista en Python y Automatización Cloud',
-  'Creador de soluciones prácticas y escalables',
+  'Desarrollador Multiplataforma experto en aplicaciones web y móviles',
+  'Desarrollador FullStack con dominio en React, Kotlin y Firebase',
+  'Especialista en Automatización y Python para entornos Cloud eficientes',
+  'Analista de Datos y Ciberseguridad con visión estratégica',
+  'Creador de soluciones escalables, prácticas y orientadas al usuario',
 ];
 
 export default function TypedWords() {
@@ -23,14 +23,14 @@ export default function TypedWords() {
       timeout = setTimeout(() => {
         setDisplayedText((prev) => prev + words[wordIndex][charIndex]);
         setCharIndex((prev) => prev + 1);
-      }, 120);
+      }, 90); // escritura algo rápida pero clara
     } else if (!deleting && charIndex === words[wordIndex].length) {
-      timeout = setTimeout(() => setDeleting(true), 3000);
+      timeout = setTimeout(() => setDeleting(true), 2200); // pausa para lectura
     } else if (deleting && charIndex > 0) {
       timeout = setTimeout(() => {
         setDisplayedText((prev) => prev.slice(0, -1));
         setCharIndex((prev) => prev - 1);
-      }, 60);
+      }, 40); // borrado rápido pero legible
     } else if (deleting && charIndex === 0) {
       setDeleting(false);
       setWordIndex((prev) => (prev + 1) % words.length);
@@ -40,8 +40,12 @@ export default function TypedWords() {
   }, [charIndex, deleting, wordIndex]);
 
   return (
-    <span className="text-teal-600 font-semibold transition-all duration-300">
+    <span
+      className="text-teal-600 dark:text-teal-400 font-semibold transition-all duration-300 inline-block min-h-[1.5rem]"
+      aria-live="polite"
+    >
       {displayedText}
+      <span className="animate-pulse">|</span>
     </span>
   );
 }

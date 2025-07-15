@@ -4,35 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
-  color: #1f2937; /* gray-800 */
-  margin: 0;
-  padding: 0;
+html {
   scroll-behavior: smooth;
 }
 
-/* Cursor parpadeante desactivado para TypedWords, no moleste */
-/* Puedes activar si quieres con .blinking-cursor */
+body {
+  @apply bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
+/* Animaciones y estilo extra */
 .blinking-cursor {
   font-weight: 600;
   font-size: 1.3em;
-  color: #14b8a6; /* teal-400 */
+  color: #14b8a6;
   animation: blink 1.2s steps(2, start) infinite;
 }
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Animación para el fade-in suave */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -48,7 +43,6 @@ html, body {
   animation: fadeInUp 0.8s ease forwards;
 }
 
-/* Sombra suave y borde circular para la foto */
 .shadow-lg {
   box-shadow: 0 10px 15px rgba(20, 184, 166, 0.3);
 }
