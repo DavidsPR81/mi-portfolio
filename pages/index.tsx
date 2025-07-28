@@ -27,25 +27,48 @@ export default function Home() {
       document.documentElement.classList.add('dark');
     } else if (currentTheme === 'light') {
       document.documentElement.classList.remove('dark');
-    } else {
-      if (isDaytime()) {
-        document.documentElement.classList.remove('dark');
-      } else {
+    } else if (currentTheme === 'auto') {
+      // Modo automático: usar preferencia del sistema O hora del día
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isNightTime = !isDaytime();
+      
+      if (prefersDark || isNightTime) {
         document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
     }
   }
 
   useEffect(() => {
     const saved = localStorage.getItem('theme') as Theme | null;
-    if (saved === 'light' || saved === 'dark' || saved === 'auto') {
-      setTheme(saved);
-      applyTheme(saved);
-    } else {
-      setTheme('auto');
-      applyTheme('auto');
-    }
-  }, []);
+    const validTheme =
+      saved === 'light' || saved === 'dark' || saved === 'auto' ? saved : 'auto';
+    setTheme(validTheme);
+    applyTheme(validTheme);
+
+    // Escuchar cambios en la preferencia del sistema
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemChange = () => {
+      if (theme === 'auto') {
+        applyTheme('auto');
+      }
+    };
+    
+    mediaQuery.addEventListener('change', handleSystemChange);
+
+    // Verificar cambios de hora cada minuto para el modo automático
+    const timeInterval = setInterval(() => {
+      if (theme === 'auto') {
+        applyTheme('auto');
+      }
+    }, 60000); // Cada minuto
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleSystemChange);
+      clearInterval(timeInterval);
+    };
+  }, [theme]);
 
   function handleThemeChange(newTheme: Theme) {
     setTheme(newTheme);
@@ -56,9 +79,10 @@ export default function Home() {
   return (
     <div className="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen">
       <Navbar theme={theme} onThemeChange={handleThemeChange} />
-      <Hero />
-      {/* Aquí main sin max-width para que el fondo de AboutMe y otras secciones pueda ser full width */}
-      <main className="px-4">
+
+      {/* Contenedor general con padding y max width para las secciones */}
+       <main className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-28 2xl:px-36">
+        <Hero />
         <AboutMe />
         <Education />
         <Projects />
