@@ -147,9 +147,9 @@ const projectsData: ProjectItem[] = [
       'Despliegue y configuración de hosting'
     ],
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Framer Motion', 'Git', 'GitHub'],
-    status: 'ongoing',
+    status: 'completed', // ✅ CAMBIAR DE 'ongoing' A 'completed'
     type: 'web',
-    period: 'jul. 2025 – actualidad',
+    period: 'jul. 2025 – ago. 2025', // ✅ CAMBIAR DE 'actualidad' A 'ago. 2025'
     achievements: [
       'Diseño y desarrollo completo desde cero',
       'Implementación de sistema de animaciones fluidas',
@@ -277,18 +277,18 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             En Desarrollo
           </span>
         );
+      case 'completed':
+        return (
+          <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-full">
+            <div className="w-2 h-2 bg-blue-500 rounded-full" />
+            Terminado
+          </span>
+        );
       case 'in-progress':
         return (
           <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 rounded-full">
             <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
             En Proceso
-          </span>
-        );
-      case 'completed':
-        return (
-          <span className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full">
-            <div className="w-2 h-2 bg-gray-500 rounded-full" />
-            Completado
           </span>
         );
       default:
