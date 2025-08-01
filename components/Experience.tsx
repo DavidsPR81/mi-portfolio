@@ -213,12 +213,12 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
   
   return (
     <div className="relative flex flex-col items-center group">
-      {/* Línea conectora */}
+      {/* Línea conectora con color específico */}
       {index < experiences.length - 1 && (
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-24 bg-gradient-to-b from-gray-300 to-gray-200 dark:from-gray-600 dark:to-gray-700 z-0" />
+        <div className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-24 bg-gradient-to-b ${config.gradient} opacity-30 z-0`} />
       )}
       
-      {/* Nodo principal */}
+      {/* Nodo principal con indicadores de interactividad */}
       <div 
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -226,10 +226,11 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
         role="button"
         aria-label={`Ver detalles de ${experience.role} en ${experience.company}`}
         aria-pressed={isActive}
-        className={`relative z-10 w-20 h-20 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${config.gradient} shadow-xl ${config.shadowColor} cursor-pointer transition-all duration-500 hover:scale-110 hover:shadow-2xl focus:scale-110 focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-500/50 flex items-center justify-center group-hover:rotate-6 ${
-          isActive ? 'scale-125 shadow-2xl' : ''
-        }`}
-        style={{ animationDelay: `${index * 0.2}s` }}
+        className={`relative z-10 w-20 h-20 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${config.gradient} shadow-xl ${config.shadowColor} cursor-pointer transition-all duration-500 hover:scale-110 hover:shadow-2xl focus:scale-110 focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-opacity-50 flex items-center justify-center group-hover:rotate-6 ${isActive ? 'scale-125 shadow-2xl' : ''}`}
+        style={{ 
+          animationDelay: `${index * 0.2}s`,
+          '--tw-ring-color': config.gradient.includes('emerald') ? 'rgb(16 185 129 / 0.5)' : config.gradient.includes('purple') ? 'rgb(147 51 234 / 0.5)' : 'rgb(249 115 22 / 0.5)'
+        } as React.CSSProperties}
       >
         <IconComponent className="text-white text-xl" />
         
@@ -237,20 +238,43 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
         {isActive && (
           <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${config.gradient} animate-ping opacity-30`} />
         )}
+        
+        {/* Indicador sutil de hover - anillo exterior con color específico */}
+        <div className={`absolute inset-0 rounded-full border-2 border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse`} />
+        
+        {/* Indicador de click disponible con color específico */}
+        {!isActive && (
+          <div 
+            className={`absolute -top-1 -right-1 w-3 h-3 rounded-full opacity-60 animate-bounce`}
+            style={{
+              background: config.gradient.includes('emerald') ? '#10b981' : config.gradient.includes('purple') ? '#9333ea' : '#f97316',
+              animationDuration: '2s', 
+              animationDelay: `${index * 0.3}s`
+            }}
+          />
+        )}
       </div>
       
-      {/* Etiqueta de año */}
-      <div className={`mt-3 px-3 py-1 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border ${config.borderColor} shadow-lg`}>
+      {/* Etiqueta de año con colores específicos */}
+      <div className={`mt-3 px-3 py-1 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border ${config.borderColor} shadow-lg transition-all duration-300 group-hover:scale-105 ${isActive ? `ring-2 ring-opacity-50` : ''}`}
+           style={{
+             '--tw-ring-color': config.gradient.includes('emerald') ? 'rgb(16 185 129 / 0.5)' : config.gradient.includes('purple') ? 'rgb(147 51 234 / 0.5)' : 'rgb(249 115 22 / 0.5)'
+           } as React.CSSProperties}>
         <span className={`text-xs font-bold ${config.textColor}`}>
           {experience.date.includes('–') ? experience.date.split('–')[0].trim() : experience.date.split(',')[0]}
         </span>
       </div>
       
-      {/* Título del rol (visible en hover) */}
+      {/* Título del rol con colores específicos */}
       <div className={`absolute top-24 md:top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20 w-48`}>
         <div className={`bg-gradient-to-r ${config.bgGradient} backdrop-blur-sm rounded-lg border ${config.borderColor} shadow-xl p-3 text-center`}>
           <h4 className={`font-bold text-sm ${config.textColor} leading-tight`}>{experience.role}</h4>
           <p className={`text-xs ${config.accentColor} mt-1`}>{experience.company}</p>
+          {/* Indicador sutil de click con color específico */}
+          <div className="flex items-center justify-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <span>Clic para ver detalles</span>
+            <FaChevronRight className={`w-2 h-2 ${config.accentColor}`} />
+          </div>
         </div>
       </div>
     </div>
@@ -388,9 +412,16 @@ export default function Experience() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Timeline Vertical Interactivo */}
           <div className="flex flex-col items-center space-y-8">
-            <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400 mb-8 text-center">
-              Mapa de Trayectoria Profesional
-            </h3>
+            <div className="flex items-center gap-3 mb-8">
+              <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400 text-center">
+                Mapa de Trayectoria Profesional
+              </h3>
+              {/* Indicador sutil de interactividad */}
+              <div className="flex items-center gap-1 px-3 py-1 bg-teal-50 dark:bg-teal-900/30 rounded-full border border-teal-200 dark:border-teal-700/50">
+                <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
+                <span className="text-xs text-teal-600 dark:text-teal-400 font-medium">Interactivo</span>
+              </div>
+            </div>
             
             <div className="flex flex-col space-y-10 md:space-y-8" role="tablist" aria-label="Experiencias profesionales">
               {experiences.map((experience, index) => (
@@ -405,12 +436,18 @@ export default function Experience() {
               ))}
             </div>
             
-            {/* Indicador de progresión */}
-            <div className="mt-8 text-center">
+            {/* Indicador de progresión con hint de interactividad */}
+            <div className="mt-8 text-center space-y-3">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/50 dark:to-cyan-900/50 rounded-full border border-teal-200 dark:border-teal-700">
                 <span className="text-sm font-medium text-teal-700 dark:text-teal-300">
                   Evolución: Técnico → Líder → Desarrollador
                 </span>
+              </div>
+              {/* Hint sutil de navegación */}
+              <div className="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <FaChevronRight className="w-3 h-3 animate-pulse" />
+                <span>Haz clic en los nodos para explorar</span>
+                <FaChevronRight className="w-3 h-3 animate-pulse" style={{animationDelay: '0.5s'}} />
               </div>
             </div>
           </div>

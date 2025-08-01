@@ -23,118 +23,115 @@ const navLinks = [
 ];
 
 export default function Navbar({ theme, onThemeChange }: NavbarProps) {
+  const [activeHash, setActiveHash] = useState('#home');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setActiveHash(window.location.hash || '#home');
-    const handleHashChange = () => setActiveHash(window.location.hash || '#home');
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  const renderThemeIcon = (currentTheme: Theme) => {
+    switch (currentTheme) {
+      case 'light': return <FaSun className="animate-pulse" style={{animationDuration: '3s'}} />;
+      case 'dark': return <FaMoon className="animate-pulse" style={{animationDuration: '3s'}} />;
+      case 'auto': return <FaAdjust className="animate-pulse" style={{animationDuration: '3s'}} />;
+      default: return <FaSun className="animate-pulse" style={{animationDuration: '3s'}} />;
+    }
+  };
 
-  // Close dropdown if click outside
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    const handleHashChange = () => {
+      setActiveHash(window.location.hash || '#home');
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setThemeMenuOpen(false);
       }
-    }
-    if (themeMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('hashchange', handleHashChange);
+    document.addEventListener('mousedown', handleClickOutside);
+    handleHashChange();
+    handleScroll();
+
     return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [themeMenuOpen]);
-
-  // Close mobile menu if click outside or screen resized to desktop
-  useEffect(() => {
-    function handleClickOutsideMobile(event: MouseEvent) {
-      if (
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node) &&
-        !(event.target as HTMLElement).closest('#mobile-menu-button')
-      ) {
-        setMobileMenuOpen(false);
-      }
-    }
-
-    function handleResize() {
-      if (window.matchMedia('(min-width: 768px)').matches) {
-        setMobileMenuOpen(false);
-      }
-    }
-
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutsideMobile);
-      window.addEventListener('resize', handleResize);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideMobile);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [mobileMenuOpen]);
-
-  function renderThemeIcon(t: Theme) {
-    if (t === 'light') return <FaSun className="inline-block" />;
-    if (t === 'dark') return <FaMoon className="inline-block" />;
-    return <FaAdjust className="inline-block" />;
-  }
+  }, []);
 
   return (
-    <nav
-      className="
-        fixed top-0 left-0 right-0
-        bg-gradient-to-r from-white/80 via-white/75 to-white/70 dark:from-gray-900/90 dark:via-gray-900/85 dark:to-gray-900/80
-        backdrop-blur-md
-        shadow-lg border-b border-teal-700 dark:border-teal-600
-        transition-all duration-500
-        z-50
-        animate-fade-in
-      "
-      role="navigation"
-      aria-label="Barra de navegación principal"
-    >
-      <div className="max-w-full mx-auto flex items-center h-16 md:h-20 px-4 md:px-8">
-        {/* Nombre optimizado para móvil y desktop */}
-        <div
-          className="font-black text-[1.2rem] sm:text-[1.45rem] md:text-[1.7rem] tracking-wide cursor-default select-none flex-shrink-0 pl-2 md:pl-8 pr-4"
-          style={{ userSelect: 'none' }}
-        >
-          <span className="gradient-name">David Pérez Rodríguez</span>
-        </div>
+    <>
+      {/* Partículas flotantes sutiles */}
+      <div className="fixed top-0 left-0 right-0 h-24 pointer-events-none z-40 overflow-hidden">
+        <div className="absolute top-2 left-1/4 w-1 h-1 bg-teal-400/20 rounded-full animate-bounce" style={{animationDelay: '0s', animationDuration: '4s'}} />
+        <div className="absolute top-4 right-1/3 w-0.5 h-0.5 bg-cyan-400/25 rounded-full animate-bounce" style={{animationDelay: '2s', animationDuration: '5s'}} />
+        <div className="absolute top-6 left-2/3 w-1 h-1 bg-teal-300/20 rounded-full animate-bounce" style={{animationDelay: '1s', animationDuration: '4.5s'}} />
+      </div>
 
-        <div className="flex-grow" />
+      <nav 
+        className={`fixed top-0 left-0 right-0 transition-all duration-700 ease-out z-50 animate-fade-in ${
+          isScrolled 
+            ? 'bg-gradient-to-r from-white/95 via-white/90 to-white/85 dark:from-gray-900/98 dark:via-gray-900/95 dark:to-gray-900/90 backdrop-blur-xl shadow-2xl shadow-teal-500/10 dark:shadow-teal-400/5'
+            : 'bg-gradient-to-r from-white/90 via-white/85 to-white/80 dark:from-gray-900/95 dark:via-gray-900/90 dark:to-gray-900/85 backdrop-blur-md shadow-lg'
+        } border-b border-teal-500/30 dark:border-teal-400/20`} 
+        role="navigation" 
+        aria-label="Barra de navegación principal"
+      >
+        <div className="max-w-full mx-auto flex items-center h-16 md:h-20 px-4 md:px-8 relative">
+          {/* Efecto de brillo sutil en hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-500/3 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          
+          {/* Nombre con efectos mejorados - MISMA POSICIÓN */}
+          <div className="font-black text-[1.2rem] sm:text-[1.45rem] md:text-[1.7rem] tracking-wide cursor-default select-none flex-shrink-0 pl-2 md:pl-8 pr-4 relative group" style={{ userSelect: 'none' }}>
+            <span className="relative bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 dark:from-teal-300 dark:via-teal-400 dark:to-cyan-400 bg-clip-text text-transparent hover:from-teal-400 hover:via-teal-500 hover:to-cyan-500 dark:hover:from-teal-200 dark:hover:via-teal-300 dark:hover:to-cyan-300 transition-all duration-500">
+              David Pérez Rodríguez
+              {/* Efecto de brillo deslizante sutil */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1200 ease-out" />
+            </span>
+            {/* Línea decorativa mejorada */}
+            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-teal-500/20 dark:via-teal-400/20 to-transparent group-hover:via-teal-500/40 dark:group-hover:via-teal-400/30 transition-all duration-500" />
+          </div>
 
-        {/* Componentes con espaciado optimizado */}
-        <div className="hidden md:flex items-center space-x-6 pr-4 md:pr-8">
-          <ul className="flex space-x-6 text-gray-700 dark:text-gray-300 font-semibold text-[1rem] sm:text-[1.1rem] select-none">
-            {navLinks.map(({ label, href }) => (
+          {/* MISMO ESPACIADOR */}
+          <div className="flex-1" />
+
+          {/* Navegación - MISMA POSICIÓN Y ESPACIADO */}
+          <ul className="hidden md:flex items-center space-x-1 lg:space-x-3 text-gray-700 dark:text-gray-300 font-semibold text-sm lg:text-base select-none">
+            {navLinks.map(({ label, href }, index) => (
               <li key={href}>
                 <a
                   href={href}
                   aria-current={activeHash === href ? 'page' : undefined}
-                  className={`relative py-1 px-1 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded ${
-                    activeHash === href
-                      ? 'underline underline-offset-4 text-teal-600 dark:text-teal-300 font-semibold'
-                      : ''
+                  className={`group relative px-2 lg:px-3 py-2 rounded-md transition-all duration-300 hover:text-teal-600 dark:hover:text-teal-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 hover:bg-teal-50/30 dark:hover:bg-teal-900/20 hover:shadow-md hover:shadow-teal-500/10 dark:hover:shadow-teal-400/5 ${
+                    activeHash === href ? 'text-teal-600 dark:text-teal-400 font-bold bg-teal-50/50 dark:bg-teal-900/25 shadow-sm shadow-teal-500/15 dark:shadow-teal-400/10' : ''
                   }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {label}
-                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-teal-500 dark:bg-teal-300 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-[2px] rounded-full" />
+                  {/* Línea animada mejorada */}
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-[2px] rounded-full shadow-sm shadow-teal-400/30" />
+                  {activeHash === href && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 opacity-100 translate-y-[2px] rounded-full shadow-sm shadow-teal-400/30" />
+                  )}
+                  {/* Efecto de resplandor sutil en hover */}
+                  <div className="absolute inset-0 rounded-md bg-gradient-to-r from-teal-400/0 via-teal-400/5 to-teal-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Botón de tema */}
+          {/* Botón de tema mejorado - MISMA POSICIÓN */}
           <div className="relative" ref={dropdownRef}>
             <button
               aria-label="Seleccionar tema"
@@ -142,210 +139,100 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
               aria-expanded={themeMenuOpen}
               aria-controls="theme-menu"
               onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-              className="text-teal-700 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors text-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-md p-1"
+              className="text-teal-700 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-all duration-300 text-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-md p-1 hover:bg-teal-50/50 dark:hover:bg-teal-900/30 hover:shadow-lg hover:shadow-teal-500/15 dark:hover:shadow-teal-400/10"
               id="theme-toggle-button"
               type="button"
             >
-              {renderThemeIcon(theme)}
+              <div className="relative">
+                {renderThemeIcon(theme)}
+                {/* Anillo de brillo sutil */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-teal-400/10 to-transparent animate-spin" style={{animationDuration: '4s'}} />
+              </div>
             </button>
 
             {themeMenuOpen && (
-              <ul
+              <div
                 id="theme-menu"
-                className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg py-1 text-gray-900 dark:text-gray-100 z-50 select-none
-                animate-fade-slide"
                 role="menu"
                 aria-labelledby="theme-toggle-button"
+                className="absolute right-0 mt-2 w-44 bg-white/98 dark:bg-gray-800/98 backdrop-blur-xl border border-teal-200/70 dark:border-teal-800/70 rounded-lg shadow-2xl shadow-teal-500/15 dark:shadow-teal-400/10 py-1 text-gray-900 dark:text-gray-100 z-50 select-none animate-fade-in-up"
               >
-                <li>
+                {[
+                  { theme: 'light' as Theme, label: 'Claro', icon: <FaSun /> },
+                  { theme: 'dark' as Theme, label: 'Oscuro', icon: <FaMoon /> },
+                  { theme: 'auto' as Theme, label: 'Automático', icon: <FaAdjust /> },
+                ].map(({ theme: themeOption, label, icon }, index) => (
                   <button
+                    key={themeOption}
+                    role="menuitem"
                     onClick={() => {
-                      onThemeChange('light');
+                      onThemeChange(themeOption);
                       setThemeMenuOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-700 flex items-center gap-2 ${
-                      theme === 'light' ? 'font-semibold' : ''
+                    className={`w-full text-left px-4 py-2 hover:bg-teal-50/80 dark:hover:bg-teal-900/30 transition-all duration-200 flex items-center gap-3 rounded-md mx-1 hover:shadow-sm hover:shadow-teal-500/10 ${
+                      theme === themeOption ? 'bg-teal-50/80 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 font-medium shadow-sm shadow-teal-500/15 dark:shadow-teal-400/10' : ''
                     }`}
-                    role="menuitem"
-                    type="button"
+                    style={{ animationDelay: `${index * 75}ms` }}
                   >
-                    <FaSun /> Claro
+                    <span className="text-lg text-teal-600 dark:text-teal-400">{icon}</span>
+                    {label}
                   </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      onThemeChange('dark');
-                      setThemeMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-700 flex items-center gap-2 ${
-                      theme === 'dark' ? 'font-semibold' : ''
-                    }`}
-                    role="menuitem"
-                    type="button"
-                  >
-                    <FaMoon /> Oscuro
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={() => {
-                      onThemeChange('auto');
-                      setThemeMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-700 flex items-center gap-2 ${
-                      theme === 'auto' ? 'font-semibold' : ''
-                    }`}
-                    role="menuitem"
-                    type="button"
-                  >
-                    <FaAdjust /> Automático
-                  </button>
-                </li>
-              </ul>
+                ))}
+              </div>
             )}
           </div>
+
+          {/* Botón móvil - MISMA POSICIÓN */}
+          <button
+            aria-label="Abrir menú de navegación"
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden ml-2 text-teal-700 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-all duration-300 text-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-md p-2 hover:bg-teal-50/50 dark:hover:bg-teal-900/30 hover:shadow-lg hover:shadow-teal-500/15 dark:hover:shadow-teal-400/10"
+          >
+            {mobileMenuOpen ? <FaTimes className="animate-pulse" /> : <FaBars />}
+          </button>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          id="mobile-menu-button"
-          aria-label={mobileMenuOpen ? 'Cerrar menú móvil' : 'Abrir menú móvil'}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-menu"
-          className="md:hidden ml-2 text-teal-700 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors text-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 rounded-md p-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          type="button"
-        >
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
-      </div>
+        {/* Línea separadora inferior mejorada */}
+        <div className={`absolute bottom-0 left-0 right-0 h-0.5 transition-all duration-700 ${
+          isScrolled 
+            ? 'bg-gradient-to-r from-teal-500/40 via-cyan-500/25 to-teal-500/40 dark:from-teal-400/25 dark:via-cyan-400/15 dark:to-teal-400/25 opacity-90 shadow-sm shadow-teal-500/20 dark:shadow-teal-400/15'
+            : 'bg-gradient-to-r from-teal-500/30 via-cyan-500/20 to-teal-500/30 dark:from-teal-400/20 dark:via-cyan-400/15 dark:to-teal-400/20 opacity-70'
+        }`}>
+          {/* Efecto de brillo sutil que se mueve */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" style={{animationDuration: '3s'}} />
+        </div>
+      </nav>
 
-      {/* Mobile menu */}
+      {/* Menú móvil mejorado */}
       {mobileMenuOpen && (
-        <div
-          id="mobile-menu"
-          ref={mobileMenuRef}
-          className="md:hidden bg-white dark:bg-gray-900 border-t border-teal-700 dark:border-teal-600 shadow-lg"
-        >
+        <div ref={mobileMenuRef} className="md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl border-t border-teal-200/70 dark:border-teal-800/70 shadow-2xl shadow-teal-500/15 dark:shadow-teal-400/10">
           <ul className="flex flex-col space-y-1 py-3 px-4 text-gray-700 dark:text-gray-300 font-semibold text-base select-none">
-            {navLinks.map(({ label, href }) => (
+            {navLinks.map(({ label, href }, index) => (
               <li key={href}>
                 <a
                   href={href}
                   aria-current={activeHash === href ? 'page' : undefined}
-                  className={`block py-2 px-3 rounded hover:bg-teal-100 dark:hover:bg-teal-700 transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
-                    activeHash === href ? 'bg-teal-200 dark:bg-teal-700 font-semibold' : ''
+                  className={`block py-2 px-3 rounded hover:bg-teal-50/80 dark:hover:bg-teal-900/30 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 hover:shadow-sm hover:shadow-teal-500/10 dark:hover:shadow-teal-400/5 ${
+                    activeHash === href ? 'bg-teal-100/80 dark:bg-teal-800/30 text-teal-700 dark:text-teal-300 font-semibold shadow-sm shadow-teal-500/15 dark:shadow-teal-400/10' : ''
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  {label}
+                  <div className="flex items-center">
+                    <span className="relative">
+                      {label}
+                      {activeHash === href && (
+                        <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 shadow-sm shadow-teal-400/30"></span>
+                      )}
+                    </span>
+                  </div>
                 </a>
               </li>
             ))}
           </ul>
-          <div className="border-t border-teal-700 dark:border-teal-600 px-4 py-3 flex items-center gap-3">
-            <span className="font-semibold text-teal-600 dark:text-teal-300">
-              Tema:
-            </span>
-            <button
-              onClick={() => {
-                onThemeChange('light');
-                setMobileMenuOpen(false);
-              }}
-              className={`px-3 py-1 rounded hover:bg-teal-100 dark:hover:bg-teal-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
-                theme === 'light' ? 'font-semibold underline' : ''
-              }`}
-              type="button"
-            >
-              Claro
-            </button>
-            <button
-              onClick={() => {
-                onThemeChange('dark');
-                setMobileMenuOpen(false);
-              }}
-              className={`px-3 py-1 rounded hover:bg-teal-100 dark:hover:bg-teal-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
-                theme === 'dark' ? 'font-semibold underline' : ''
-              }`}
-              type="button"
-            >
-              Oscuro
-            </button>
-            <button
-              onClick={() => {
-                onThemeChange('auto');
-                setMobileMenuOpen(false);
-              }}
-              className={`px-3 py-1 rounded hover:bg-teal-100 dark:hover:bg-teal-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
-                theme === 'auto' ? 'font-semibold underline' : ''
-              }`}
-              type="button"
-            >
-              Automático
-            </button>
-          </div>
         </div>
       )}
-
-      <style jsx>{`
-        /* Animación gradiente texto */
-        @keyframes gradientShift {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-        .gradient-name {
-          background: linear-gradient(
-            270deg,
-            #0f766e 20%,
-            #14b8a6 50%,
-            #0f766e 80%
-          );
-          background-size: 200% 100%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: gradientShift 6s ease-in-out infinite;
-          display: inline-block;
-          position: relative;
-        }
-
-        /* Animación fade-in navbar */
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        /* Animación fade-slide dropdown */
-        @keyframes fadeSlideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-6px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fade-slide {
-          animation: fadeSlideDown 0.25s ease forwards;
-        }
-      `}</style>
-    </nav>
+    </>
   );
 }

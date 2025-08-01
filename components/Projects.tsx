@@ -183,23 +183,23 @@ const projectsData: ProjectItem[] = [
   },
   {
     id: 'intranet',
-    title: 'Intranet de Rota',
-    description: 'Sistema de gestión interna para organización municipal',
+    title: 'Intranet Ayuntamiento de Rota',
+    description: 'App móvil en Kotlin con sistema de notificaciones integrado',
     longDescription: [
-      'Desarrollo de sistema de gestión interna con tecnologías web',
-      'Implementación de módulos de administración y control',
-      'Sistema de autenticación y gestión de usuarios',
-      'Interfaz administrativa para gestión de contenidos',
-      'Optimización para uso interno organizacional'
+      'Desarrollo de aplicación móvil Android con Kotlin basada en la web existente',
+      'Integración de sistema de notificaciones personalizadas y grupales',
+      'Conexión con autenticación PHP de la plataforma web para gestión de usuarios',
+      'Sistema de notificaciones push tanto individuales como masivas',
+      'Adaptación de funcionalidades web existentes para entorno móvil'
     ],
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Web Development', 'Git', 'GitHub'],
+    technologies: ['Kotlin', 'Android', 'PHP', 'Push Notifications', 'Web Integration', 'HTML', 'CSS', 'JavaScript', 'Git', 'GitHub'],
     status: 'completed',
-    type: 'web',
+    type: 'android',
     period: 'mar. 2024 – jun. 2024',
     achievements: [
-      'Sistema completo de gestión administrativa',
-      'Implementación de módulos de control integrados',
-      'Interfaz optimizada para uso organizacional'
+      'Sistema completo de notificaciones personalizadas y grupales',
+      'Integración exitosa con autenticación PHP existente',
+      'Adaptación móvil de funcionalidades web del ayuntamiento'
     ],
     collaboration: 'Proyecto académico - Desarrollo de Aplicaciones Web',
     order: 4
@@ -439,19 +439,54 @@ export default function Projects() {
       <div className="max-w-[1400px] w-full mx-auto relative z-20">
         <TextDecoderTitle text="Proyectos Técnicos" active={isVisible} Icon={FaCode} />
 
-        {/* Métricas destacadas */}
+        {/* Métricas destacadas con efectos de cristal y ondas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/50 dark:to-cyan-900/50 rounded-xl p-6 text-center border border-teal-200/50 dark:border-teal-700/50">
-            <div className="text-3xl font-bold text-teal-600 dark:text-teal-400">{activeProjects}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Proyectos Activos</div>
+          <div className="relative bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/50 dark:to-cyan-900/50 rounded-xl p-6 text-center border border-teal-200/50 dark:border-teal-700/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/20 overflow-hidden backdrop-blur-sm">
+            {/* Efecto de cristal */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Ondas de energía */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-1/2 left-1/2 w-8 h-8 border border-teal-400 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '3s'}} />
+              <div className="absolute top-1/2 left-1/2 w-12 h-12 border border-cyan-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '4s', animationDelay: '1s'}} />
+              <div className="absolute top-1/2 left-1/2 w-16 h-16 border border-teal-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '5s', animationDelay: '2s'}} />
+            </div>
+            {/* Líneas de energía */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent animate-pulse" style={{animationDuration: '2s'}} />
+            <div className="absolute bottom-0 right-0 w-full h-0.5 bg-gradient-to-l from-transparent via-cyan-400 to-transparent animate-pulse" style={{animationDuration: '2.5s', animationDelay: '0.5s'}} />
+            <div className="relative z-10 text-3xl font-bold text-teal-600 dark:text-teal-400 group-hover:text-teal-500 dark:group-hover:text-teal-300 transition-all duration-300 group-hover:drop-shadow-lg">{activeProjects}</div>
+            <div className="relative z-10 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Proyectos Activos</div>
           </div>
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/50 dark:to-orange-900/50 rounded-xl p-6 text-center border border-amber-200/50 dark:border-amber-700/50">
-            <div className="text-3xl font-bold text-amber-600 dark:text-amber-400">{totalTechnologies}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Tecnologías Utilizadas</div>
+          
+          <div className="relative bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/50 dark:to-orange-900/50 rounded-xl p-6 text-center border border-amber-200/50 dark:border-amber-700/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 overflow-hidden backdrop-blur-sm">
+            {/* Efecto de cristal */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Ondas de energía */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-1/2 left-1/2 w-8 h-8 border border-amber-400 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '3.2s'}} />
+              <div className="absolute top-1/2 left-1/2 w-12 h-12 border border-orange-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '4.2s', animationDelay: '1.1s'}} />
+              <div className="absolute top-1/2 left-1/2 w-16 h-16 border border-yellow-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '5.2s', animationDelay: '2.1s'}} />
+            </div>
+            {/* Líneas de energía */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent animate-pulse" style={{animationDuration: '2.2s'}} />
+            <div className="absolute bottom-0 right-0 w-full h-0.5 bg-gradient-to-l from-transparent via-orange-400 to-transparent animate-pulse" style={{animationDuration: '2.7s', animationDelay: '0.6s'}} />
+            <div className="relative z-10 text-3xl font-bold text-amber-600 dark:text-amber-400 group-hover:text-amber-500 dark:group-hover:text-amber-300 transition-all duration-300 group-hover:drop-shadow-lg">{totalTechnologies}</div>
+            <div className="relative z-10 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Tecnologías Utilizadas</div>
           </div>
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl p-6 text-center border border-blue-200/50 dark:border-blue-700/50">
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{completedProjects}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Proyectos Completados</div>
+          
+          <div className="relative bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-xl p-6 text-center border border-blue-200/50 dark:border-blue-700/50 transition-all duration-500 group hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 overflow-hidden backdrop-blur-sm">
+            {/* Efecto de cristal */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Ondas de energía */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-1/2 left-1/2 w-8 h-8 border border-blue-400 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '3.4s'}} />
+              <div className="absolute top-1/2 left-1/2 w-12 h-12 border border-indigo-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '4.4s', animationDelay: '1.2s'}} />
+              <div className="absolute top-1/2 left-1/2 w-16 h-16 border border-purple-300 rounded-full animate-ping transform -translate-x-1/2 -translate-y-1/2" style={{animationDuration: '5.4s', animationDelay: '2.2s'}} />
+            </div>
+            {/* Líneas de energía */}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-pulse" style={{animationDuration: '2.4s'}} />
+            <div className="absolute bottom-0 right-0 w-full h-0.5 bg-gradient-to-l from-transparent via-indigo-400 to-transparent animate-pulse" style={{animationDuration: '2.9s', animationDelay: '0.7s'}} />
+            <div className="relative z-10 text-3xl font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-all duration-300 group-hover:drop-shadow-lg">{completedProjects}</div>
+            <div className="relative z-10 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">Proyectos Completados</div>
           </div>
         </div>
 
@@ -481,5 +516,27 @@ export default function Projects() {
         }
       `}</style>
     </section>
+  );
+}
+
+// Componente para mostrar mockups de dispositivos
+function DeviceMockup({ type, image }: { type: 'mobile' | 'desktop', image: string }) {
+  return (
+    <div className={`relative ${type === 'mobile' ? 'w-64 h-96' : 'w-96 h-64'} mx-auto`}>
+      {/* Frame del dispositivo */}
+      <div className={`absolute inset-0 bg-gray-800 rounded-${type === 'mobile' ? '3xl' : 'xl'} p-2 shadow-2xl`}>
+        <div className="w-full h-full bg-white rounded-${type === 'mobile' ? '2xl' : 'lg'} overflow-hidden">
+          <img src={image} alt="App preview" className="w-full h-full object-cover" />
+        </div>
+      </div>
+      
+      {/* Detalles del dispositivo */}
+      {type === 'mobile' && (
+        <>
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full" />
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gray-700 rounded-full" />
+        </>
+      )}
+    </div>
   );
 }
