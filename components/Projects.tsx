@@ -519,22 +519,30 @@ export default function Projects() {
   );
 }
 
-// Componente para mostrar mockups de dispositivos
+// En la función DeviceMockup, cambiar:
 function DeviceMockup({ type, image }: { type: 'mobile' | 'desktop', image: string }) {
   return (
-    <div className={`relative ${type === 'mobile' ? 'w-64 h-96' : 'w-96 h-64'} mx-auto`}>
+    <div className={`relative mx-auto ${
+      type === 'mobile' 
+        ? 'w-48 h-72 sm:w-56 sm:h-80 md:w-64 md:h-96' 
+        : 'w-72 h-48 sm:w-80 sm:h-56 md:w-96 md:h-64'
+    }`}>
       {/* Frame del dispositivo */}
-      <div className={`absolute inset-0 bg-gray-800 rounded-${type === 'mobile' ? '3xl' : 'xl'} p-2 shadow-2xl`}>
-        <div className="w-full h-full bg-white rounded-${type === 'mobile' ? '2xl' : 'lg'} overflow-hidden">
+      <div className={`absolute inset-0 bg-gray-800 rounded-${
+        type === 'mobile' ? '3xl' : 'xl'
+      } p-1 sm:p-2 shadow-2xl`}>
+        <div className={`w-full h-full bg-white rounded-${
+          type === 'mobile' ? '2xl' : 'lg'
+        } overflow-hidden`}>
           <img src={image} alt="App preview" className="w-full h-full object-cover" />
         </div>
       </div>
       
-      {/* Detalles del dispositivo */}
+      {/* Detalles responsive del dispositivo */}
       {type === 'mobile' && (
         <>
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-600 rounded-full" />
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gray-700 rounded-full" />
+          <div className="absolute top-2 sm:top-4 left-1/2 transform -translate-x-1/2 w-12 sm:w-16 h-0.5 sm:h-1 bg-gray-600 rounded-full" />
+          <div className="absolute bottom-1 sm:bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-8 sm:w-12 sm:h-12 bg-gray-700 rounded-full" />
         </>
       )}
     </div>

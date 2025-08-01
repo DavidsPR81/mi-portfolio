@@ -76,9 +76,9 @@ export default function Hero() {
           <div className="absolute bottom-1/4 right-1/3 w-12 h-12 border border-cyan-300 rounded-full animate-pulse" style={{animationDuration: '6s', animationDelay: '2s'}} />
         </div>
 
-        <div className={`flex flex-col md:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-12 md:gap-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`flex flex-col lg:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-8 lg:gap-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* TEXTO */}
-          <div className="flex-grow text-left max-w-[900px] pr-4">
+          <div className="flex-grow text-left max-w-[900px] lg:pr-4 order-2 lg:order-1">
             {/* Indicador "Abierto a nuevas oportunidades" con efecto más sutil */}
             <div
               className="flex items-center gap-3 text-green-500 dark:text-green-400 text-lg md:text-xl leading-relaxed mb-6 select-none group hover:scale-105 transition-transform duration-300"
@@ -173,8 +173,13 @@ export default function Hero() {
             <div
               className="relative rounded-full overflow-hidden shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-3 group-hover:shadow-teal-500/25"
               style={{
-                width: '384px',
-                height: '384px',
+                // ❌ CAMBIAR ESTO:
+                // width: '384px',
+                // height: '384px',
+                
+                // ✅ POR ESTO (responsive):
+                width: 'clamp(200px, 50vw, 384px)',
+                height: 'clamp(200px, 50vw, 384px)',
                 border: '6px solid transparent',
                 background: 'linear-gradient(45deg, #0d9488, #06b6d4) padding-box, linear-gradient(45deg, #0d9488, #06b6d4) border-box',
                 boxShadow: '0 25px 50px rgba(13, 148, 136, 0.4), 0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2)',
@@ -187,7 +192,7 @@ export default function Hero() {
                 src="/fotocurriculum1-Photoroom.jpg"
                 alt="Foto David Pérez Rodríguez"
                 fill
-                sizes="(max-width: 768px) 80vw, 384px"
+                sizes="(max-width: 640px) 200px, (max-width: 768px) 300px, 384px"
                 style={{ objectFit: 'cover', objectPosition: 'top', borderRadius: '9999px' }}
                 className="group-hover:scale-105 transition-transform duration-500"
               />

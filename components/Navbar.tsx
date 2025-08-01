@@ -92,7 +92,7 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
           {/* Efecto de brillo sutil en hover */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-teal-500/3 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
-          {/* Nombre con efectos mejorados - MISMA POSICIÓN */}
+          {/* Nombre con efectos mejorados */}
           <div className="font-black text-[1.2rem] sm:text-[1.45rem] md:text-[1.7rem] tracking-wide cursor-default select-none flex-shrink-0 pl-2 md:pl-8 pr-4 relative group" style={{ userSelect: 'none' }}>
             <span className="relative bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 dark:from-teal-300 dark:via-teal-400 dark:to-cyan-400 bg-clip-text text-transparent hover:from-teal-400 hover:via-teal-500 hover:to-cyan-500 dark:hover:from-teal-200 dark:hover:via-teal-300 dark:hover:to-cyan-300 transition-all duration-500">
               David Pérez Rodríguez
@@ -103,10 +103,10 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-teal-500/20 dark:via-teal-400/20 to-transparent group-hover:via-teal-500/40 dark:group-hover:via-teal-400/30 transition-all duration-500" />
           </div>
 
-          {/* MISMO ESPACIADOR */}
+          {/* Espaciador */}
           <div className="flex-1" />
 
-          {/* Navegación - MISMA POSICIÓN Y ESPACIADO */}
+          {/* Navegación Desktop */}
           <ul className="hidden md:flex items-center space-x-1 lg:space-x-3 text-gray-700 dark:text-gray-300 font-semibold text-sm lg:text-base select-none">
             {navLinks.map(({ label, href }, index) => (
               <li key={href}>
@@ -131,7 +131,26 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             ))}
           </ul>
 
-          {/* Botón de tema mejorado - MISMA POSICIÓN */}
+          {/* Navegación Móvil con Scroll Horizontal */}
+          <div className="md:hidden flex-1 mx-4">
+            <div className="flex items-center space-x-4 overflow-x-auto scrollbar-hide py-2 px-2" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+              {navLinks.slice(0, 5).map(({ label, href }, index) => (
+                <a
+                  key={href}
+                  href={href}
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap ${
+                    activeHash === href 
+                      ? 'bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300' 
+                      : 'text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400'
+                  }`}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Botón de tema mejorado */}
           <div className="relative" ref={dropdownRef}>
             <button
               aria-label="Seleccionar tema"
@@ -182,7 +201,7 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             )}
           </div>
 
-          {/* Botón móvil - MISMA POSICIÓN */}
+          {/* Botón móvil */}
           <button
             aria-label="Abrir menú de navegación"
             aria-expanded={mobileMenuOpen}
@@ -206,7 +225,7 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
 
       {/* Menú móvil mejorado */}
       {mobileMenuOpen && (
-        <div ref={mobileMenuRef} className="md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl border-t border-teal-200/70 dark:border-teal-800/70 shadow-2xl shadow-teal-500/15 dark:shadow-teal-400/10">
+        <div ref={mobileMenuRef} className="md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl border-t border-teal-200/70 dark:border-teal-800/70 shadow-2xl shadow-teal-500/15 dark:shadow-teal-400/10 fixed top-16 md:top-20 left-0 right-0 z-40">
           <ul className="flex flex-col space-y-1 py-3 px-4 text-gray-700 dark:text-gray-300 font-semibold text-base select-none">
             {navLinks.map(({ label, href }, index) => (
               <li key={href}>
