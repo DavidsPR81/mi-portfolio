@@ -6,9 +6,7 @@
 
 ## 🚀 Demo del Proyecto
 
-🔗 [Repositorio en GitHub](https://github.com/DavidsPR81/portfolio)
-
----
+🔗 https://david-miportfolio.netlify.app/
 
 ## 📁 Estructura del Proyecto
 
