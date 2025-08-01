@@ -96,10 +96,8 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
           <div className="font-black text-[1.2rem] sm:text-[1.45rem] md:text-[1.7rem] tracking-wide cursor-default select-none flex-shrink-0 pl-2 md:pl-8 pr-4 relative group" style={{ userSelect: 'none' }}>
             <span className="relative bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 dark:from-teal-300 dark:via-teal-400 dark:to-cyan-400 bg-clip-text text-transparent hover:from-teal-400 hover:via-teal-500 hover:to-cyan-500 dark:hover:from-teal-200 dark:hover:via-teal-300 dark:hover:to-cyan-300 transition-all duration-500">
               David Pérez Rodríguez
-              {/* Efecto de brillo deslizante sutil */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1200 ease-out" />
             </span>
-            {/* Línea decorativa mejorada */}
             <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-teal-500/20 dark:via-teal-400/20 to-transparent group-hover:via-teal-500/40 dark:group-hover:via-teal-400/30 transition-all duration-500" />
           </div>
 
@@ -119,29 +117,32 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {label}
-                  {/* Línea animada mejorada */}
                   <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-[2px] rounded-full shadow-sm shadow-teal-400/30" />
                   {activeHash === href && (
                     <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 opacity-100 translate-y-[2px] rounded-full shadow-sm shadow-teal-400/30" />
                   )}
-                  {/* Efecto de resplandor sutil en hover */}
                   <div className="absolute inset-0 rounded-md bg-gradient-to-r from-teal-400/0 via-teal-400/5 to-teal-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Navegación Móvil con Scroll Horizontal */}
-          <div className="md:hidden flex-1 mx-4">
-            <div className="flex items-center space-x-4 overflow-x-auto scrollbar-hide py-2 px-2" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
-              {navLinks.slice(0, 5).map(({ label, href }, index) => (
+          {/* Navegación Móvil con Scroll Horizontal CORREGIDO */}
+          <div className="md:hidden flex-1 mx-2">
+            <div className="flex items-center space-x-3 overflow-x-auto scrollbar-hide py-2 px-2" 
+                 style={{
+                   scrollbarWidth: 'none', 
+                   msOverflowStyle: 'none',
+                   WebkitOverflowScrolling: 'touch'
+                 }}>
+              {navLinks.map(({ label, href }) => (
                 <a
                   key={href}
                   href={href}
-                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap ${
+                  className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap border ${
                     activeHash === href 
-                      ? 'bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300' 
-                      : 'text-gray-600 dark:text-gray-400 hover:text-teal-600 dark:hover:text-teal-400'
+                      ? 'bg-teal-600 text-white border-teal-600 shadow-lg' 
+                      : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:border-teal-300 dark:hover:border-teal-500'
                   }`}
                 >
                   {label}
@@ -150,7 +151,7 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             </div>
           </div>
 
-          {/* Botón de tema mejorado */}
+          {/* Botón de tema */}
           <div className="relative" ref={dropdownRef}>
             <button
               aria-label="Seleccionar tema"
@@ -164,7 +165,6 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             >
               <div className="relative">
                 {renderThemeIcon(theme)}
-                {/* Anillo de brillo sutil */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-teal-400/10 to-transparent animate-spin" style={{animationDuration: '4s'}} />
               </div>
             </button>
@@ -212,18 +212,17 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
           </button>
         </div>
 
-        {/* Línea separadora inferior mejorada */}
+        {/* Línea separadora inferior */}
         <div className={`absolute bottom-0 left-0 right-0 h-0.5 transition-all duration-700 ${
           isScrolled 
             ? 'bg-gradient-to-r from-teal-500/40 via-cyan-500/25 to-teal-500/40 dark:from-teal-400/25 dark:via-cyan-400/15 dark:to-teal-400/25 opacity-90 shadow-sm shadow-teal-500/20 dark:shadow-teal-400/15'
             : 'bg-gradient-to-r from-teal-500/30 via-cyan-500/20 to-teal-500/30 dark:from-teal-400/20 dark:via-cyan-400/15 dark:to-teal-400/20 opacity-70'
         }`}>
-          {/* Efecto de brillo sutil que se mueve */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" style={{animationDuration: '3s'}} />
         </div>
       </nav>
 
-      {/* Menú móvil mejorado */}
+      {/* Menú móvil */}
       {mobileMenuOpen && (
         <div ref={mobileMenuRef} className="md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl border-t border-teal-200/70 dark:border-teal-800/70 shadow-2xl shadow-teal-500/15 dark:shadow-teal-400/10 fixed top-16 md:top-20 left-0 right-0 z-40">
           <ul className="flex flex-col space-y-1 py-3 px-4 text-gray-700 dark:text-gray-300 font-semibold text-base select-none">
