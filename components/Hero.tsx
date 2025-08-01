@@ -76,9 +76,9 @@ export default function Hero() {
           <div className="absolute bottom-1/4 right-1/3 w-12 h-12 border border-cyan-300 rounded-full animate-pulse" style={{animationDuration: '6s', animationDelay: '2s'}} />
         </div>
 
-        <div className={`flex flex-col lg:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-12 lg:gap-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`flex flex-col lg:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-16 lg:gap-24 xl:gap-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* TEXTO */}
-          <div className="flex-grow text-left max-w-[900px] order-2 lg:order-1">
+          <div className="flex-grow text-left max-w-[800px] order-2 lg:order-1 lg:pr-12 xl:pr-16">
             {/* Indicador "Abierto a nuevas oportunidades" con efecto más sutil */}
             <div
               className="flex items-center gap-3 text-green-500 dark:text-green-400 text-lg md:text-xl leading-relaxed mb-6 select-none group hover:scale-105 transition-transform duration-300"
@@ -165,7 +165,7 @@ export default function Hero() {
           </div>
 
           {/* FOTO mejorada */}
-          <div className="relative flex-shrink-0 ml-6 group">
+          <div className="relative flex-shrink-0 ml-8 lg:ml-12 xl:ml-16 group">
             {/* Elemento decorativo de fondo mejorado */}
             <div className="absolute -inset-6 bg-gradient-to-r from-teal-600 to-cyan-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 animate-pulse transition-opacity duration-500" style={{animationDuration: '4s'}} />
             <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full blur-lg opacity-30 group-hover:opacity-50 animate-pulse transition-opacity duration-500" style={{animationDuration: '3s'}} />

@@ -127,10 +127,13 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
             ))}
           </ul>
 
-          {/* Navegación Móvil con Scroll Horizontal CORREGIDO */}
+          {/* Navegación Móvil con Scroll Horizontal FUNCIONAL */}
           <div className="md:hidden flex-1 mx-2">
-            <div className="flex items-center space-x-3 overflow-x-auto scrollbar-hide py-2 px-2" 
+            <div className="mobile-nav-scroll flex items-center gap-3 py-2 px-2" 
                  style={{
+                   overflowX: 'scroll',
+                   overflowY: 'hidden',
+                   whiteSpace: 'nowrap',
                    scrollbarWidth: 'none', 
                    msOverflowStyle: 'none',
                    WebkitOverflowScrolling: 'touch'
@@ -139,11 +142,12 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
                 <a
                   key={href}
                   href={href}
-                  className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap border ${
+                  className={`mobile-nav-item flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap border inline-block ${
                     activeHash === href 
                       ? 'bg-teal-600 text-white border-teal-600 shadow-lg' 
                       : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:border-teal-300 dark:hover:border-teal-500'
                   }`}
+                  style={{ minWidth: 'max-content' }}
                 >
                   {label}
                 </a>
