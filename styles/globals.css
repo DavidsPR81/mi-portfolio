@@ -62,15 +62,6 @@ body {
   display: none;
 }
 
-/* Snap scroll para navegación móvil */
-.snap-x {
-  scroll-snap-type: x mandatory;
-}
-
-.snap-center {
-  scroll-snap-align: center;
-}
-
 /* Mejoras responsive adicionales */
 @media (max-width: 640px) {
   .text-responsive {
@@ -81,18 +72,12 @@ body {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
   }
   
-  /* Padding top AUMENTADO para evitar que el hero se oculte */
   #home {
     padding-top: 8rem !important;
     margin-top: 1rem !important;
   }
-  
-  .hero-mobile-spacing {
-    padding-top: 2rem;
-  }
 }
 
-/* Mejoras para tablets */
 @media (min-width: 641px) and (max-width: 1024px) {
   #home {
     padding-top: 9rem !important;
@@ -101,27 +86,5 @@ body {
   .tablet-padding {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-}
-
-/* Scroll horizontal FORZADO para móvil */
-@media (max-width: 768px) {
-  .mobile-nav-scroll {
-    overflow-x: scroll !important;
-    overflow-y: hidden;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .mobile-nav-scroll::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .mobile-nav-item {
-    display: inline-block;
-    flex-shrink: 0;
-    min-width: max-content;
   }
 }
