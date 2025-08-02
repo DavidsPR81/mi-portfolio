@@ -38,7 +38,7 @@ export default function Hero() {
 
       <section
         id="home"
-        className="w-full min-h-screen flex items-center justify-center bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 relative px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden pt-20 md:pt-24"
+        className="w-full min-h-screen flex items-center justify-center bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 relative px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-20"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
         {/* Gradiente radial que sigue al mouse */}
@@ -76,9 +76,9 @@ export default function Hero() {
           <div className="absolute bottom-1/4 right-1/3 w-12 h-12 border border-cyan-300 rounded-full animate-pulse" style={{animationDuration: '6s', animationDelay: '2s'}} />
         </div>
 
-        <div className={`flex flex-col lg:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-16 lg:gap-24 xl:gap-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`flex flex-col lg:flex-row items-center justify-between max-w-[1400px] w-full z-10 gap-12 sm:gap-16 lg:gap-20 xl:gap-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* TEXTO */}
-          <div className="flex-grow text-left max-w-[800px] order-2 lg:order-1 lg:pr-12 xl:pr-16">
+          <div className="flex-grow text-left max-w-[800px] order-2 lg:order-1 lg:pr-8 xl:pr-12">
             {/* Indicador "Abierto a nuevas oportunidades" con efecto más sutil */}
             <div
               className="flex items-center gap-3 text-green-500 dark:text-green-400 text-lg md:text-xl leading-relaxed mb-6 select-none group hover:scale-105 transition-transform duration-300"
@@ -129,7 +129,7 @@ export default function Hero() {
             {/* Botones de acción mejorados - SIN las métricas */}
             <div className="flex flex-wrap items-center gap-6 justify-start">
               <a
-                href="/curriculumDavidJunioATS3.pdf"
+                href="/curriculumagosto.pdf"
                 download
                 aria-label="Descargar currículum en PDF"
                 className="relative flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/25 overflow-hidden"
@@ -164,20 +164,20 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* FOTO mejorada */}
-          <div className="relative flex-shrink-0 ml-8 lg:ml-12 xl:ml-16 group">
+          {/* FOTO mejorada con mejor espaciado */}
+          <div className="relative flex-shrink-0 order-1 lg:order-2 lg:ml-8 xl:ml-12 group">
             {/* Elemento decorativo de fondo mejorado */}
-            <div className="absolute -inset-6 bg-gradient-to-r from-teal-600 to-cyan-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 animate-pulse transition-opacity duration-500" style={{animationDuration: '4s'}} />
-            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full blur-lg opacity-30 group-hover:opacity-50 animate-pulse transition-opacity duration-500" style={{animationDuration: '3s'}} />
+            <div className="absolute -inset-4 sm:-inset-6 bg-gradient-to-r from-teal-600 to-cyan-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 animate-pulse transition-opacity duration-500" style={{animationDuration: '4s'}} />
+            <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full blur-lg opacity-30 group-hover:opacity-50 animate-pulse transition-opacity duration-500" style={{animationDuration: '3s'}} />
             
             <div
               className="relative rounded-full overflow-hidden shadow-2xl transition-all duration-500 hover:scale-110 hover:rotate-3 group-hover:shadow-teal-500/25"
               style={{
-                width: 'clamp(250px, 40vw, 384px)',
-                height: 'clamp(250px, 40vw, 384px)',
-                border: '6px solid transparent',
+                width: 'clamp(200px, 35vw, 320px)',
+                height: 'clamp(200px, 35vw, 320px)',
+                border: '4px solid transparent',
                 background: 'linear-gradient(45deg, #0d9488, #06b6d4) padding-box, linear-gradient(45deg, #0d9488, #06b6d4) border-box',
-                boxShadow: '0 25px 50px rgba(13, 148, 136, 0.4), 0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2)',
+                boxShadow: '0 20px 40px rgba(13, 148, 136, 0.3), 0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2)',
               }}
             >
               {/* Overlay con efecto de brillo */}
@@ -187,14 +187,14 @@ export default function Hero() {
                 src="/fotocurriculum1-Photoroom.jpg"
                 alt="Foto David Pérez Rodríguez"
                 fill
-                sizes="(max-width: 640px) 250px, (max-width: 768px) 300px, 384px"
+                sizes="(max-width: 640px) 200px, (max-width: 768px) 250px, 320px"
                 style={{ objectFit: 'cover', objectPosition: 'top', borderRadius: '9999px' }}
                 className="group-hover:scale-105 transition-transform duration-500"
               />
             </div>
             
-             {/* Badges de roles profesionales flotantes */}
-            <div className="absolute -top-6 -left-6 w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg animate-float hover:scale-125 transition-transform duration-300 group cursor-pointer" style={{animationDelay: '0s'}}>
+             {/* Badges de roles profesionales flotantes con mejor posicionamiento */}
+            <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg animate-float hover:scale-125 transition-transform duration-300 group cursor-pointer" style={{animationDelay: '0s'}}>
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full animate-ping opacity-20" />
               <span className="text-white font-bold text-xs relative z-10 group-hover:scale-110 transition-transform duration-300 text-center leading-tight">Full<br/>Stack</span>
             </div>

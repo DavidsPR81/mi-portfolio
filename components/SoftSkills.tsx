@@ -54,10 +54,10 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-16">
-      <div className="flex items-center gap-4 text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className={`text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
             ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
           `}
         />
@@ -176,25 +176,26 @@ export default function SoftSkills() {
     <section 
       ref={sectionRef}
       id="aptitudes" 
-      className="w-full py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative overflow-hidden"
+      className="w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative overflow-hidden"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       {/* Fondo decorativo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-br from-teal-500/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-500/15 to-indigo-500/15 rounded-full blur-2xl animate-pulse delay-500" />
+        <div className="absolute top-20 left-10 w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-teal-500/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-500/15 to-indigo-500/15 rounded-full blur-2xl animate-pulse delay-500" />
       </div>
       
       <div className="max-w-[1400px] w-full mx-auto relative z-20">
         <TextDecoderTitle text="Aptitudes Personales" active={isVisible} Icon={FaUserGraduate} />
         
-        {/* Diseño tipo timeline vertical */}
+        {/* DISEÑO RESPONSIVE: Timeline en desktop, Grid en móvil */}
         <div className="relative">
-          {/* Línea central */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-teal-500/30 via-cyan-500/30 to-purple-500/30 rounded-full" />
+          {/* Línea central - Solo visible en desktop */}
+          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-teal-500/30 via-cyan-500/30 to-purple-500/30 rounded-full" />
           
-          <div className="space-y-16">
+          {/* DESKTOP: Timeline layout */}
+          <div className="hidden lg:block space-y-16">
             {softSkillsData.map((skill, index) => {
               const isLeft = index % 2 === 0;
               return (
@@ -271,6 +272,70 @@ export default function SoftSkills() {
                 </div>
               );
             })}
+          </div>
+
+          {/* MÓVIL Y TABLET: Grid layout */}
+          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {softSkillsData.map((skill, index) => (
+              <div
+                key={index}
+                className={`${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                } transition-all duration-700`}
+                style={{
+                  transitionDelay: `${index * 150}ms`
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <div className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-gray-800/90 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 ${
+                  hoveredIndex === index ? 'shadow-2xl scale-105' : ''
+                }`}>
+                  {/* Efectos de fondo */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${skill.color.replace('from-', 'from-').replace('to-', 'to-')}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                  
+                  {/* Partículas flotantes */}
+                  <div className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
+                  <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
+                  
+                  <div className="relative p-4 sm:p-6">
+                    {/* Header */}
+                    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                      <div className={`relative p-2 sm:p-3 rounded-xl bg-gradient-to-r ${skill.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                        <skill.icon className="text-lg sm:text-xl" />
+                        <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
+                          {skill.title}
+                        </h3>
+                      </div>
+                    </div>
+                    
+                    {/* Descripción */}
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 leading-relaxed">
+                      {skill.description}
+                    </p>
+                    
+                    {/* Skills en lista horizontal con badges */}
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {skill.skills.map((item, skillIndex) => (
+                        <span
+                          key={skillIndex}
+                          className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-teal-500/10 to-cyan-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 hover:border-teal-500/40 transition-all duration-300 hover:scale-105"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Efecto shimmer */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
