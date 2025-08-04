@@ -28,7 +28,7 @@ import {
 interface EducationItem {
   title: string;
   institution: string;
-  period?: string; // Solo para académico y certificados
+  period?: string;
   hours?: string;
   description: string[];
   category: 'academic' | 'certificate' | 'course';
@@ -93,7 +93,6 @@ const educationData: EducationItem[] = [
     order: 3
   },
   // Cursos y Especializaciones (Azul) - SIN fechas, agrupados por tipo
-  // 1. Idiomas
   {
     title: 'Inglés B1',
     institution: 'En proceso de certificación',
@@ -101,7 +100,6 @@ const educationData: EducationItem[] = [
     category: 'course',
     order: 1
   },
-  // 2. Informática y Programación
   {
     title: 'Programación con JavaScript',
     institution: 'Fundación Telefónica',
@@ -150,7 +148,6 @@ const educationData: EducationItem[] = [
     category: 'course',
     order: 7
   },
-  // 3. Metodologías y Estilo de Trabajo
   {
     title: 'Metodología Scrum y JIRA para gestión ágil de proyectos',
     institution: 'Educa Open',
@@ -159,7 +156,6 @@ const educationData: EducationItem[] = [
     category: 'course',
     order: 8
   },
-  // 4. Otros (no informática)
   {
     title: 'Certificado PRL',
     institution: 'Laborali',
@@ -229,10 +225,10 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-16">
-      <div className="flex items-center gap-4 text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className={`text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
             ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
           `}
         />
@@ -328,60 +324,64 @@ function TimelineItem({ item, index, isLeft }: TimelineItemProps) {
   const IconComponent = config.icon;
 
   return (
-    <div className={`flex items-center mb-12 animate-fade-in-up`} style={{ animationDelay: `${index * 0.2}s` }}>
-      {/* Contenido izquierdo */}
-      <div className={`w-5/12 ${isLeft ? 'pr-8' : 'pl-8 order-3'}`}>
+    <div className={`flex flex-col md:flex-row items-center mb-8 md:mb-12 animate-fade-in-up`} style={{ animationDelay: `${index * 0.2}s` }}>
+      {/* Contenido principal - Full width en móvil, 5/12 en desktop */}
+      <div className={`w-full md:w-5/12 ${isLeft ? 'md:pr-4 lg:pr-8' : 'md:pl-4 lg:pl-8 md:order-3'} mb-4 md:mb-0`}>
         <div
-          className={`bg-gradient-to-br ${config.bgGradient} backdrop-blur-sm rounded-2xl border ${config.borderColor} shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 p-6 group`}
+          className={`bg-gradient-to-br ${config.bgGradient} backdrop-blur-sm rounded-2xl border ${config.borderColor} shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 p-4 sm:p-6 group`}
         >
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${config.iconColor} bg-white/50 dark:bg-gray-800/50 group-hover:scale-110 transition-transform duration-300`}>
-                <IconComponent className="text-xl" />
+          <div className="flex flex-col sm:flex-row items-start justify-between mb-4 gap-3">
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className={`p-2 rounded-lg ${config.iconColor} bg-white/50 dark:bg-gray-800/50 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                <IconComponent className="text-lg sm:text-xl" />
               </div>
-              <div>
-                <h3 className={`font-bold text-lg ${config.titleColor} group-hover:text-opacity-80 transition-colors duration-300`}>
+              <div className="min-w-0 flex-1">
+                <h3 className={`font-bold text-base sm:text-lg ${config.titleColor} group-hover:text-opacity-80 transition-colors duration-300 break-words`}>
                   {item.title}
                 </h3>
                 {item.institution && (
-                  <p className={`text-sm font-semibold ${config.iconColor}`}>{item.institution}</p>
+                  <p className={`text-xs sm:text-sm font-semibold ${config.iconColor} break-words`}>{item.institution}</p>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 mb-3 text-sm text-gray-600 dark:text-gray-400">
-            {/* Solo mostrar período para académico y certificados */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             {item.period && (
-              <span className="font-mono">{item.period}</span>
+              <span className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">{item.period}</span>
             )}
             {item.hours && (
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">
                 <FaClock className="text-xs" />
                 {item.hours}
               </span>
             )}
           </div>
 
-          <ul className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed space-y-1">
+          <ul className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed space-y-2">
             {item.description.map((desc, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} mt-2 flex-shrink-0`} />
-                {desc}
+                <span className="break-words">{desc}</span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      {/* Línea central y punto */}
-      <div className="w-2/12 flex justify-center relative">
+      {/* Línea central y punto - Oculto en móvil, visible en desktop */}
+      <div className="hidden md:flex w-2/12 justify-center relative">
         <div className="w-0.5 h-24 bg-gradient-to-b from-teal-400 to-cyan-500 dark:from-teal-500 dark:to-cyan-400 opacity-60" />
         <div className={`absolute top-8 w-4 h-4 ${config.dotColor} dark:border-gray-700 rounded-full shadow-lg animate-pulse-slow`} />
       </div>
 
-      {/* Espacio derecho */}
-      <div className={`w-5/12 ${!isLeft ? 'pr-8' : 'pl-8 order-1'}`} />
+      {/* Separador móvil */}
+      <div className="md:hidden w-full flex justify-center my-4">
+        <div className={`w-8 h-0.5 ${config.dotColor} opacity-60 rounded-full`} />
+      </div>
+
+      {/* Espacio derecho - Solo en desktop */}
+      <div className={`hidden md:block w-5/12 ${!isLeft ? 'md:pr-4 lg:pr-8' : 'md:pl-4 lg:pl-8 md:order-1'}`} />
     </div>
   );
 }

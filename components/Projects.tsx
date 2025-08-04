@@ -79,9 +79,9 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-12">
-      <div className="flex items-center gap-3 text-4xl font-extrabold tracking-wide relative select-none">
-        <Icon className="text-teal-600 dark:text-teal-400 transition-all duration-500 hover:scale-105 hover:text-teal-500 dark:hover:text-teal-300" />
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-wide relative select-none">
+        <Icon className="text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-500 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300" />
         <span className="bg-gradient-to-r from-teal-600/90 to-cyan-500/90 dark:from-teal-400/90 dark:to-cyan-300/90 bg-clip-text text-transparent transition-all duration-300">
           {decoded}
         </span>
@@ -301,55 +301,57 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <div 
-      className="animate-fade-in-up mb-8" 
+      className="animate-fade-in-up mb-6 sm:mb-8" 
       style={{ animationDelay: `${index * 0.2}s` }}
     >
       <div
-        className={`bg-gradient-to-br ${config.bgGradient} backdrop-blur-sm rounded-2xl border ${config.borderColor} shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 p-8 group h-[600px] flex flex-col`}
+        className={`bg-gradient-to-br ${config.bgGradient} backdrop-blur-sm rounded-2xl border ${config.borderColor} shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 p-4 sm:p-6 lg:p-8 group min-h-[500px] sm:min-h-[550px] lg:min-h-[600px] flex flex-col`}
       >
-        {/* Header del proyecto */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-xl ${config.iconColor} bg-white/50 dark:bg-gray-800/50 group-hover:scale-110 transition-transform duration-300`}>
-              <IconComponent className="text-2xl" />
+        {/* Header del proyecto - Responsive */}
+        <div className="flex flex-col sm:flex-row items-start justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
+          <div className="flex items-start gap-3 sm:gap-4 w-full sm:w-auto">
+            <div className={`p-2 sm:p-3 rounded-xl ${config.iconColor} bg-white/50 dark:bg-gray-800/50 group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+              <IconComponent className="text-lg sm:text-xl lg:text-2xl" />
             </div>
-            <div>
-              <h3 className={`font-bold text-2xl ${config.titleColor} group-hover:text-opacity-80 transition-colors duration-300`}>
+            <div className="min-w-0 flex-1">
+              <h3 className={`font-bold text-lg sm:text-xl lg:text-2xl ${config.titleColor} group-hover:text-opacity-80 transition-colors duration-300 break-words leading-tight`}>
                 {project.title}
               </h3>
-              <p className={`text-sm font-medium ${config.iconColor} mt-1`}>
+              <p className={`text-xs sm:text-sm font-medium ${config.iconColor} mt-1 break-words`}>
                 {project.description}
               </p>
             </div>
           </div>
-          {getStatusBadge(project.status)}
+          <div className="flex-shrink-0 w-full sm:w-auto">
+            {getStatusBadge(project.status)}
+          </div>
         </div>
 
-        {/* Información del período */}
-        <div className="flex items-center gap-4 mb-6 text-sm text-gray-600 dark:text-gray-400">
-          <span className="flex items-center gap-2 font-mono">
-            <FaClock className="text-xs" />
-            {project.period}
+        {/* Información del período - Responsive */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4 sm:mb-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+          <span className="flex items-center gap-2 font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">
+            <FaClock className="text-xs flex-shrink-0" />
+            <span className="break-all">{project.period}</span>
           </span>
           {project.collaboration && (
-            <span className="flex items-center gap-2">
-              <FaUsers className="text-xs" />
-              {project.collaboration}
+            <span className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-xs">
+              <FaUsers className="text-xs flex-shrink-0" />
+              <span className="break-words">{project.collaboration}</span>
             </span>
           )}
         </div>
 
-        {/* Tecnologías */}
-        <div className="mb-6">
-          <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2">
-            <FaLaptopCode className="text-xs" />
+        {/* Tecnologías - Responsive */}
+        <div className="mb-4 sm:mb-6">
+          <h4 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 sm:mb-3 flex items-center gap-2">
+            <FaLaptopCode className="text-xs flex-shrink-0" />
             Tecnologías
           </h4>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {project.technologies.map((tech, idx) => (
               <span
                 key={idx}
-                className="px-3 py-1 text-xs font-medium bg-white/70 dark:bg-gray-700/70 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-gray-600/50 hover:scale-105 transition-transform duration-200"
+                className="px-2 sm:px-3 py-1 text-xs font-medium bg-white/70 dark:bg-gray-700/70 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-gray-600/50 hover:scale-105 transition-transform duration-200 break-words"
               >
                 {tech}
               </span>
@@ -357,34 +359,34 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        {/* Descripción detallada - con flex-grow para ocupar espacio disponible */}
-        <div className="mb-6 flex-grow">
-          <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2">
-            <FaPalette className="text-xs" />
+        {/* Descripción detallada - Responsive con flex-grow */}
+        <div className="mb-4 sm:mb-6 flex-grow">
+          <h4 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 sm:mb-3 flex items-center gap-2">
+            <FaPalette className="text-xs flex-shrink-0" />
             Características Principales
           </h4>
-          <ul className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed space-y-2">
+          <ul className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm leading-relaxed space-y-1.5 sm:space-y-2">
             {project.longDescription.slice(0, 4).map((desc, idx) => (
-              <li key={idx} className="flex items-start gap-3">
-                <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} mt-2 flex-shrink-0`} />
-                {desc}
+              <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} mt-1.5 sm:mt-2 flex-shrink-0`} />
+                <span className="break-words">{desc}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Logros - siempre al final */}
+        {/* Logros - Responsive, siempre al final */}
         {project.achievements && project.achievements.length > 0 && (
-          <div className="border-t border-gray-200/50 dark:border-gray-600/50 pt-4 mt-auto">
-            <h4 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2">
-              <FaRocket className="text-xs" />
+          <div className="border-t border-gray-200/50 dark:border-gray-600/50 pt-3 sm:pt-4 mt-auto">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2 sm:mb-3 flex items-center gap-2">
+              <FaRocket className="text-xs flex-shrink-0" />
               Logros Destacados
             </h4>
-            <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <ul className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 space-y-1">
               {project.achievements.map((achievement, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500 mt-2 flex-shrink-0" />
-                  {achievement}
+                <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-500 mt-1.5 sm:mt-2 flex-shrink-0" />
+                  <span className="break-words">{achievement}</span>
                 </li>
               ))}
             </ul>

@@ -54,10 +54,10 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-16">
-      <div className="flex items-center gap-4 text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className={`text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
             ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
           `}
         />
@@ -173,19 +173,19 @@ export default function About() {
         <div className="flex flex-col md:flex-row items-start justify-between gap-8 md:gap-12">
           <div className={`flex-grow max-w-[900px] transition-all duration-1000 flex flex-col justify-between ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`} style={{transitionDelay: '0.3s'}}>
             <div className="space-y-8 flex-grow flex flex-col justify-center">
-              <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
+              <p className="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-left sm:text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
                 Profesional con más de <strong className="text-blue-600 dark:text-blue-400 group-hover:text-blue-500 transition-colors duration-300">17 años de experiencia</strong> en <strong className="text-blue-600 dark:text-blue-400 group-hover:text-blue-500 transition-colors duration-300">liderazgo</strong> y <strong className="text-blue-600 dark:text-blue-400 group-hover:text-blue-500 transition-colors duration-300">gestión comercial</strong> dentro de entornos multinacionales, reconocido por <strong className="text-blue-600 dark:text-blue-400 group-hover:text-blue-500 transition-colors duration-300">optimizar procesos</strong> y alcanzar incrementos sostenidos en ventas, impulsando resultados tangibles en equipos de alto rendimiento.
               </p>
 
-              <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
+              <p className="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-left sm:text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
                 Actualmente en proceso de transición al sector tecnológico, especializándome en <strong className="text-amber-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors duration-300">Desarrollo de Aplicaciones Multiplataforma</strong> mediante formación de Grado Superior, abarcando desarrollo web, móvil, <strong className="text-amber-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors duration-300">análisis de datos</strong> y <strong className="text-amber-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors duration-300">ciberseguridad</strong>, aplicando un enfoque práctico y orientado a la entrega de soluciones efectivas.
               </p>
 
-              <p className="text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
+              <p className="text-lg sm:text-xl leading-relaxed text-gray-700 dark:text-gray-300 text-left sm:text-justify hover:text-gray-600 dark:hover:text-gray-200 transition-colors duration-300 group">
                 Mi experiencia técnica en desarrollo abarca tecnologías como <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">Kotlin</strong>, <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">React</strong>, <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">Firebase</strong> y automatización en <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">Google Cloud Platform</strong>, combinando <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">habilidades de liderazgo consolidadas</strong> con <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">competencias técnicas emergentes</strong> y <strong className="text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-500 transition-colors duration-300">metodologías ágiles</strong> para construir soluciones robustas y escalables.
               </p>
 
-              <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-400 text-justify hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300 group">
+              <p className="text-lg sm:text-xl leading-relaxed text-gray-600 dark:text-gray-400 text-left sm:text-justify hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300 group">
                 Destaco por mi <strong className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">capacidad de adaptación</strong>, <strong className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">constancia</strong> y compromiso con el <strong className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">aprendizaje continuo</strong>, atributos que me permiten enfrentar desafíos complejos con eficacia y mantenerme a la vanguardia tecnológica, aportando valor mediante la combinación única de <strong className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">experiencia en liderazgo</strong> y <strong className="text-gray-700 dark:text-gray-300 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">competencias tecnológicas avanzadas</strong>.
               </p>
             </div>

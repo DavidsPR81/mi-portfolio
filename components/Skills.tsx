@@ -54,23 +54,21 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-12">
-      <div className="flex items-center gap-3 text-4xl font-extrabold tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className="text-teal-600 dark:text-teal-400 transition-all duration-500 hover:scale-105 hover:text-teal-500 dark:hover:text-teal-300"
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+            ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
+          `}
         />
-        <span className="bg-gradient-to-r from-teal-600/90 to-cyan-500/90 dark:from-teal-400/90 dark:to-cyan-300/90 bg-clip-text text-transparent transition-all duration-300">
-          {decoded}
-        </span>
+        <span className="inline-block">{decoded}</span>
       </div>
+
       <div
         className={`h-1 bg-gradient-to-r from-teal-600/80 to-cyan-500/80 dark:from-teal-400/80 dark:to-cyan-300/80 mt-3 rounded-full transition-all duration-300 ${
           active ? 'line-grow' : 'w-0'
         }`}
       />
-      <p className="text-xl text-gray-600 dark:text-gray-300 mt-6 leading-relaxed text-left">
-        Tecnologías y herramientas que domino para crear soluciones completas y eficientes
-      </p>
 
       <style jsx>{`
         @keyframes lineGrow {
@@ -175,7 +173,7 @@ interface SkillCategoryCardProps {
 function SkillCategoryCard({ category, index, isVisible }: SkillCategoryCardProps) {
   return (
     <div 
-      className={`group relative overflow-hidden rounded-2xl transition-all duration-700 hover:scale-[1.02] ${
+      className={`group relative overflow-hidden rounded-2xl transition-all duration-700 hover:scale-[1.02] w-full max-w-sm mx-auto ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
@@ -196,27 +194,27 @@ function SkillCategoryCard({ category, index, isVisible }: SkillCategoryCardProp
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-700 delay-200 shadow-2xl shadow-teal-500/20 blur-2xl" />
       
       {/* Contenido */}
-      <div className="relative p-8 h-full">
+      <div className="relative p-4 sm:p-6 lg:p-8 h-full flex flex-col">
         {/* Partículas flotantes mejoradas */}
         <div className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
         <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
         <div className="absolute top-1/2 right-6 w-1.5 h-1.5 bg-purple-400/50 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300 delay-400" />
         <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-400/50 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300 delay-600" />
         
-        {/* Header mejorado */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className={`relative p-3 rounded-xl bg-gradient-to-r ${category.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden`}>
+        {/* Header mejorado y centrado */}
+        <div className="flex flex-col items-center text-center mb-6">
+          <div className={`relative p-3 rounded-xl bg-gradient-to-r ${category.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden mb-3`}>
             <category.icon className="text-xl relative z-10" />
             <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-all duration-300">
+          <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-all duration-300 text-center">
             {category.title}
           </h3>
         </div>
         
-        {/* Skills con fondos animados individuales */}
-        <div className="space-y-3">
+        {/* Skills con fondos animados individuales y centrados */}
+        <div className="space-y-2 sm:space-y-3 flex-1">
           {category.skills.map((skill, skillIndex) => (
             <div
               key={skillIndex}
@@ -237,14 +235,14 @@ function SkillCategoryCard({ category, index, isVisible }: SkillCategoryCardProp
               <div className="absolute bottom-1 left-2 w-0.5 h-0.5 bg-cyan-400/40 rounded-full opacity-0 group-hover/skill:opacity-100 group-hover/skill:animate-bounce transition-all duration-300 delay-100" />
               <div className="absolute top-1/2 left-1 w-0.5 h-0.5 bg-blue-400/30 rounded-full opacity-0 group-hover/skill:opacity-100 group-hover/skill:animate-pulse transition-all duration-300 delay-200" />
               
-              {/* Contenido del skill */}
-              <div className="relative p-3 border border-white/50 dark:border-gray-600/50 group-hover/skill:border-teal-400/60 transition-all duration-400 hover:shadow-lg backdrop-blur-sm rounded-lg">
+              {/* Contenido del skill centrado */}
+              <div className="relative p-2 sm:p-3 border border-white/50 dark:border-gray-600/50 group-hover/skill:border-teal-400/60 transition-all duration-400 hover:shadow-lg backdrop-blur-sm rounded-lg text-center">
                 {/* Efecto shimmer mejorado */}
                 <div className="absolute inset-0 -translate-x-full group-hover/skill:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
                 <div className="absolute inset-0 -translate-x-full group-hover/skill:translate-x-full transition-transform duration-1200 delay-200 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent skew-x-12" />
                 
-                {/* Texto del skill */}
-                <span className="relative z-10 text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover/skill:text-teal-600 dark:group-hover/skill:text-teal-400 transition-colors duration-300">
+                {/* Texto del skill centrado */}
+                <span className="relative z-10 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover/skill:text-teal-600 dark:group-hover/skill:text-teal-400 transition-colors duration-300 block text-center leading-tight">
                   {skill}
                 </span>
                 
@@ -326,7 +324,7 @@ export default function Skills() {
         <TextDecoderTitle text="Habilidades Técnicas" active={isVisible} Icon={FaCogs} />
         
         {/* Grid de categorías */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {skillCategories.map((category, index) => (
             <SkillCategoryCard
               key={index}

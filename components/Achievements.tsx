@@ -10,10 +10,10 @@ interface TextDecoderTitleProps {
 }
 
 function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
-  const [decoded, setDecoded] = useState('');
+  const [decoded, setDecoded] = React.useState('');
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{};:,.<>?';
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!active) {
       setDecoded('');
       return;
@@ -54,10 +54,10 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
   }, [active, text]);
 
   return (
-    <div className="mb-16">
-      <div className="flex items-center gap-4 text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className={`text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
             ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
           `}
         />
@@ -165,67 +165,79 @@ export default function Achievements() {
       className="w-full py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative overflow-hidden"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* Fondo decorativo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-br from-yellow-500/15 to-orange-500/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-br from-red-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-br from-purple-500/15 to-indigo-500/15 rounded-full blur-2xl animate-pulse delay-500" />
+      {/* Patrón geométrico de fondo igual que About */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute top-32 right-20 w-28 h-28 border-2 border-teal-500 rounded-full animate-pulse hover:border-teal-400 transition-colors duration-300" style={{animationDuration: '5s'}}></div>
+        <div className="absolute top-20 left-32 w-20 h-20 border-2 border-cyan-400 rotate-45 hover:border-cyan-300 transition-colors duration-300" style={{animation: 'spin 25s linear infinite'}}></div>
+        <div className="absolute bottom-40 right-40 w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full opacity-20 animate-bounce hover:opacity-30 transition-opacity duration-300" style={{animationDuration: '7s'}}></div>
+        <div className="absolute bottom-32 left-20 w-12 h-12 border-2 border-teal-400 rounded-lg rotate-12 animate-pulse hover:border-teal-300 transition-colors duration-300" style={{animationDuration: '4s'}}></div>
+        <div className="absolute top-1/2 right-10 w-6 h-6 bg-cyan-400 rounded-full animate-ping hover:bg-cyan-300 transition-colors duration-300" style={{animationDuration: '6s'}}></div>
+        <div className="absolute top-2/3 left-10 w-8 h-8 border border-teal-500 rotate-45 animate-pulse hover:border-teal-400 transition-colors duration-300" style={{animationDuration: '8s'}}></div>
       </div>
       
       <div className="max-w-[1400px] w-full mx-auto relative z-20">
         <TextDecoderTitle text="Logros Profesionales" active={isVisible} Icon={FaTrophy} />
         
-        {/* Diseño tipo masonry/bento box */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
+        {/* Grid uniforme - todas las tarjetas del mismo tamaño */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {achievementsData.map((achievement, index) => {
-            const isLarge = index === 0 || index === 2; // Tarjetas 0 (10% Crecimiento) y 2 (Análisis de Mercado) del mismo tamaño
             return (
               <div
                 key={index}
-                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-gray-800/90 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 hover:-translate-y-2 cursor-pointer ${
-                  isLarge ? 'md:col-span-2 lg:col-span-1 lg:row-span-2' : ''
-                } ${
+                className={`group relative overflow-hidden rounded-2xl backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 hover:-translate-y-2 cursor-pointer h-80 flex flex-col ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                } ${
+                  // Fondos de colores suaves fijos
+                  index === 0 ? 'bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-800/30' :
+                  index === 1 ? 'bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-800/30' :
+                  index === 2 ? 'bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-800/30' :
+                  index === 3 ? 'bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-800/30' :
+                  index === 4 ? 'bg-cyan-50 dark:bg-cyan-900/20 hover:bg-cyan-100 dark:hover:bg-cyan-800/30' :
+                  'bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-800/30'
                 }`}
                 style={{
                   transitionDelay: `${index * 150}ms`
                 }}
                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
               >
-                {/* Efectos de fondo */}
+                {/* Efectos de hover sutiles */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className={`absolute inset-0 bg-gradient-to-br ${achievement.color}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${achievement.color}/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                 
-                {/* Partículas flotantes */}
-                <div className="absolute top-4 right-4 w-2 h-2 bg-yellow-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
-                <div className="absolute bottom-4 left-4 w-1 h-1 bg-orange-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
-                <div className="absolute top-1/2 right-6 w-1.5 h-1.5 bg-red-400/50 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300 delay-400" />
+                {/* Partículas flotantes minimalistas */}
+                <div className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
+                <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
                 
-                <div className={`relative p-6 h-full flex flex-col ${isLarge ? 'justify-center' : ''}`}>
+                <div className="relative p-6 h-full flex flex-col justify-between">
                   {/* Icono y título */}
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`relative p-3 rounded-xl bg-gradient-to-r ${achievement.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 flex-shrink-0`}>
-                      <achievement.icon className={`${isLarge ? 'text-2xl' : 'text-xl'}`} />
+                      <achievement.icon className="text-xl" />
                       <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`${isLarge ? 'text-xl' : 'text-lg'} font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300 leading-tight`}>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300 leading-tight">
                         {achievement.title}
                       </h3>
                     </div>
                   </div>
                   
                   {/* Descripción */}
-                  <div className="flex-1">
-                    <p className={`${isLarge ? 'text-base' : 'text-sm'} text-gray-600 dark:text-gray-400 leading-relaxed`}>
+                  <div className="flex-1 mb-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-4">
                       {achievement.description}
                     </p>
                   </div>
                   
-                  {/* Indicador de expansión */}
-                  <div className="mt-4 flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span>Logro destacado</span>
-                    <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
+                  {/* Indicador de logro */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span>Logro #{index + 1}</span>
+                      <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
+                    </div>
+                    <div className="text-xs text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      Ver más
+                    </div>
                   </div>
                 </div>
                 

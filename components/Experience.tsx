@@ -50,20 +50,20 @@ function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
     };
 
     animationFrame = requestAnimationFrame(decode);
-
     return () => cancelAnimationFrame(animationFrame);
   }, [active, text]);
 
   return (
-    <div className="mb-12">
-      <div className="flex items-center gap-3 text-4xl font-extrabold tracking-wide relative select-none">
+    <div className="mb-12 md:mb-16">
+      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
         <Icon
-          className="text-teal-600 dark:text-teal-400 transition-all duration-500 hover:scale-105 hover:text-teal-500 dark:hover:text-teal-300"
+          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
+            ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
+          `}
         />
-        <span className="bg-gradient-to-r from-teal-600/90 to-cyan-500/90 dark:from-teal-400/90 dark:to-cyan-300/90 bg-clip-text text-transparent transition-all duration-300">
-          {decoded}
-        </span>
+        <span className="inline-block">{decoded}</span>
       </div>
+
       <div
         className={`h-1 bg-gradient-to-r from-teal-600/80 to-cyan-500/80 dark:from-teal-400/80 dark:to-cyan-300/80 mt-3 rounded-full transition-all duration-300 ${
           active ? 'line-grow' : 'w-0'
@@ -265,16 +265,18 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
         </span>
       </div>
       
-      {/* Título del rol con colores específicos */}
-      <div className={`absolute top-24 md:top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20 w-48`}>
-        <div className={`bg-gradient-to-r ${config.bgGradient} backdrop-blur-sm rounded-lg border ${config.borderColor} shadow-xl p-3 text-center`}>
-          <h4 className={`font-bold text-sm ${config.textColor} leading-tight`}>{experience.role}</h4>
-          <p className={`text-xs ${config.accentColor} mt-1`}>{experience.company}</p>
-          {/* Indicador sutil de click con color específico */}
-          <div className="flex items-center justify-center gap-1 mt-2 text-xs text-gray-500 dark:text-gray-400">
-            <span>Clic para ver detalles</span>
+      {/* Tooltip SIEMPRE a la izquierda - Todas las versiones */}
+      <div className={`absolute top-1/2 -translate-y-1/2 right-full mr-2 sm:mr-6 md:mr-8 lg:mr-12 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 w-44 sm:w-48 md:w-56 lg:w-64`}>
+        <div className={`bg-gradient-to-r ${config.bgGradient} backdrop-blur-sm rounded-xl border ${config.borderColor} shadow-2xl p-3 sm:p-4 text-left`}>
+          <h4 className={`font-bold text-xs sm:text-sm ${config.textColor} leading-tight mb-1`}>{experience.role}</h4>
+          <p className={`text-xs ${config.accentColor} mb-2 sm:mb-3`}>{experience.company}</p>
+          <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+            <span className="hidden sm:inline">Clic para ver detalles</span>
+            <span className="sm:hidden">Toca para detalles</span>
             <FaChevronRight className={`w-2 h-2 ${config.accentColor}`} />
           </div>
+          {/* Flecha apuntando al círculo */}
+          <div className={`absolute top-1/2 -translate-y-1/2 -right-2 w-0 h-0 border-l-8 border-r-0 border-t-4 border-b-4 border-l-white/90 dark:border-l-gray-800/90 border-t-transparent border-b-transparent`}></div>
         </div>
       </div>
     </div>
@@ -446,7 +448,8 @@ export default function Experience() {
               {/* Hint sutil de navegación */}
               <div className="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                 <FaChevronRight className="w-3 h-3 animate-pulse" />
-                <span>Haz clic en los nodos para explorar</span>
+                <span className="hidden sm:inline">Haz clic en los nodos para explorar</span>
+                <span className="sm:hidden">Toca los nodos para explorar</span>
                 <FaChevronRight className="w-3 h-3 animate-pulse" style={{animationDelay: '0.5s'}} />
               </div>
             </div>

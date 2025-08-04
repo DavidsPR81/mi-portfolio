@@ -66,7 +66,6 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
 
     if (mobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      // Prevenir scroll del body cuando el menú está abierto
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -80,7 +79,6 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
-    // Smooth scroll to section
     const element = document.getElementById(href.substring(1));
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -106,22 +104,23 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo/Nombre */}
+          <div className="flex items-center justify-between h-16">
+            {/* Logo/Nombre - Alineado exactamente donde empiezan las secciones */}
             <div className="flex-shrink-0">
-              <h1 className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent drop-shadow-sm">
+              <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent drop-shadow-sm">
                 David Pérez Rodríguez
               </h1>
             </div>
 
-            {/* Navegación Desktop */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
+            {/* Navegación y controles - Alineados exactamente donde terminan las secciones */}
+            <div className="flex items-center space-x-4">
+              {/* Navegación Desktop */}
+              <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
                 {navLinks.map(({ label, href }) => (
                   <a
                     key={href}
                     href={href}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                    className={`px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                       activeHash === href
                         ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 shadow-sm'
                         : 'text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400'
@@ -131,28 +130,28 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
                   </a>
                 ))}
               </div>
-            </div>
 
-            {/* Controles de la derecha */}
-            <div className="flex items-center space-x-4">
-              {/* Toggle de tema */}
-              <button
-                onClick={cycleTheme}
-                className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                aria-label="Cambiar tema"
-              >
-                {getThemeIcon()}
-              </button>
-
-              {/* Botón menú móvil */}
-              <div className="md:hidden">
+              {/* Controles de la derecha */}
+              <div className="flex items-center space-x-2">
+                {/* Toggle de tema */}
                 <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  onClick={cycleTheme}
                   className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                  aria-label="Abrir menú"
+                  aria-label="Cambiar tema"
                 >
-                  {mobileMenuOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
+                  {getThemeIcon()}
                 </button>
+
+                {/* Botón menú móvil */}
+                <div className="md:hidden">
+                  <button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
+                    aria-label="Abrir menú"
+                  >
+                    {mobileMenuOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

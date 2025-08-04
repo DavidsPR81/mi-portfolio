@@ -143,7 +143,7 @@ const softSkillsData: SoftSkill[] = [
 
 export default function SoftSkills() {
   const [isVisible, setIsVisible] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -176,167 +176,133 @@ export default function SoftSkills() {
     <section 
       ref={sectionRef}
       id="aptitudes" 
-      className="w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative overflow-hidden"
+      className="w-full py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative overflow-hidden"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* Fondo decorativo */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-purple-500/15 to-pink-500/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-teal-500/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-br from-blue-500/15 to-indigo-500/15 rounded-full blur-2xl animate-pulse delay-500" />
+      {/* Patrón geométrico de fondo igual que About */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10">
+        <div className="absolute top-32 right-20 w-28 h-28 border-2 border-teal-500 rounded-full animate-pulse hover:border-teal-400 transition-colors duration-300" style={{animationDuration: '5s'}}></div>
+        <div className="absolute top-20 left-32 w-20 h-20 border-2 border-cyan-400 rotate-45 hover:border-cyan-300 transition-colors duration-300" style={{animation: 'spin 25s linear infinite'}}></div>
+        <div className="absolute bottom-40 right-40 w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full opacity-20 animate-bounce hover:opacity-30 transition-opacity duration-300" style={{animationDuration: '7s'}}></div>
+        <div className="absolute bottom-32 left-20 w-12 h-12 border-2 border-teal-400 rounded-lg rotate-12 animate-pulse hover:border-teal-300 transition-colors duration-300" style={{animationDuration: '4s'}}></div>
+        <div className="absolute top-1/2 right-10 w-6 h-6 bg-cyan-400 rounded-full animate-ping hover:bg-cyan-300 transition-colors duration-300" style={{animationDuration: '6s'}}></div>
+        <div className="absolute top-2/3 left-10 w-8 h-8 border border-teal-500 rotate-45 animate-pulse hover:border-teal-400 transition-colors duration-300" style={{animationDuration: '8s'}}></div>
       </div>
       
       <div className="max-w-[1400px] w-full mx-auto relative z-20">
         <TextDecoderTitle text="Aptitudes Personales" active={isVisible} Icon={FaUserGraduate} />
         
-        {/* DISEÑO RESPONSIVE: Timeline en desktop, Grid en móvil */}
-        <div className="relative">
-          {/* Línea central - Solo visible en desktop */}
-          <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-teal-500/30 via-cyan-500/30 to-purple-500/30 rounded-full" />
-          
-          {/* DESKTOP: Timeline layout */}
-          <div className="hidden lg:block space-y-16">
-            {softSkillsData.map((skill, index) => {
-              const isLeft = index % 2 === 0;
-              return (
-                <div
-                  key={index}
-                  className={`relative flex items-center ${
-                    isLeft ? 'justify-start' : 'justify-end'
-                  } ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  } transition-all duration-700`}
-                  style={{
-                    transitionDelay: `${index * 200}ms`
-                  }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  {/* Contenido */}
-                  <div className={`w-5/12 ${isLeft ? 'pr-8' : 'pl-8'}`}>
-                    <div className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-gray-800/90 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 ${
-                      hoveredIndex === index ? 'shadow-2xl scale-105' : ''
-                    }`}>
-                      {/* Efectos de fondo */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className={`absolute inset-0 bg-gradient-to-br ${skill.color.replace('from-', 'from-').replace('to-', 'to-')}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-                      
-                      {/* Partículas flotantes */}
-                      <div className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
-                      <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
-                      
-                      <div className="relative p-6">
-                        {/* Header */}
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className={`relative p-3 rounded-xl bg-gradient-to-r ${skill.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                            <skill.icon className="text-xl" />
-                            <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-                              {skill.title}
-                            </h3>
-                          </div>
-                        </div>
-                        
-                        {/* Descripción */}
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                          {skill.description}
-                        </p>
-                        
-                        {/* Skills en lista horizontal con badges */}
-                        <div className="flex flex-wrap gap-2">
-                          {skill.skills.map((item, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-teal-500/10 to-cyan-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 hover:border-teal-500/40 transition-all duration-300 hover:scale-105"
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      {/* Efecto shimmer */}
-                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
-                    </div>
-                  </div>
-                  
-                  {/* Punto central */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full border-4 border-white dark:border-gray-900 shadow-lg z-10 group-hover:scale-125 transition-transform duration-300" />
-                  
-                  {/* Línea conectora */}
-                  <div className={`absolute top-1/2 w-8 h-0.5 bg-gradient-to-r from-teal-500/50 to-cyan-500/50 ${
-                    isLeft ? 'left-1/2 ml-2' : 'right-1/2 mr-2'
-                  } opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* MÓVIL Y TABLET: Grid layout */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {softSkillsData.map((skill, index) => (
+        {/* Diseño en zigzag escalonado - único y diferente */}
+        <div className="relative max-w-6xl mx-auto">
+          {softSkillsData.map((skill, index) => {
+            const isEven = index % 2 === 0;
+            const isLast = index === softSkillsData.length - 1;
+            
+            return (
               <div
                 key={index}
-                className={`${
+                className={`relative mb-8 lg:mb-12 ${
+                  isEven ? 'lg:ml-0 lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:mr-0 lg:pl-8'
+                } ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                } transition-all duration-700`}
+                }`}
                 style={{
-                  transitionDelay: `${index * 150}ms`
+                  transitionDelay: `${index * 200}ms`,
+                  maxWidth: '500px',
+                  width: '100%'
                 }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-800/90 dark:via-gray-700/80 dark:to-gray-800/90 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 ${
-                  hoveredIndex === index ? 'shadow-2xl scale-105' : ''
-                }`}>
-                  {/* Efectos de fondo */}
+                {/* Línea conectora */}
+                {!isLast && (
+                  <div className={`hidden lg:block absolute top-full left-1/2 transform -translate-x-1/2 w-px h-12 bg-gradient-to-b from-teal-400/60 to-transparent ${
+                    isEven ? 'lg:left-3/4' : 'lg:left-1/4'
+                  }`} />
+                )}
+                
+                {/* Número de habilidad */}
+                <div className={`absolute -top-4 ${isEven ? 'lg:-left-6' : 'lg:-right-6'} left-4 w-8 h-8 bg-gradient-to-r ${skill.color} rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10`}>
+                  {index + 1}
+                </div>
+                
+                <div
+                  className={`group relative overflow-hidden rounded-2xl backdrop-blur-sm border border-gray-200/60 dark:border-gray-700/60 shadow-lg hover:shadow-2xl transition-all duration-700 hover:scale-105 cursor-pointer ${
+                    index === 0 ? 'bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-800/30' :
+                    index === 1 ? 'bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-800/30' :
+                    index === 2 ? 'bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-800/30' :
+                    index === 3 ? 'bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-800/30' :
+                    index === 4 ? 'bg-cyan-50 dark:bg-cyan-900/20 hover:bg-cyan-100 dark:hover:bg-cyan-800/30' :
+                    'bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-800/30'
+                  } ${
+                    isEven ? 'lg:hover:translate-x-2' : 'lg:hover:-translate-x-2'
+                  }`}
+                  onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                >
+                  {/* Efectos de hover sutiles */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${skill.color.replace('from-', 'from-').replace('to-', 'to-')}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${skill.color}/8 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                   
-                  {/* Partículas flotantes */}
+                  {/* Indicador de dirección */}
+                  <div className={`absolute top-1/2 transform -translate-y-1/2 ${isEven ? '-right-3' : '-left-3'} w-6 h-6 bg-gradient-to-r ${skill.color} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center`}>
+                    <div className={`w-2 h-2 border-t-2 border-r-2 border-white transform ${isEven ? 'rotate-45' : '-rotate-135'}`} />
+                  </div>
+                  
+                  {/* Partículas flotantes minimalistas */}
                   <div className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-300" />
                   <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyan-400/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-bounce transition-all duration-300 delay-200" />
                   
-                  <div className="relative p-4 sm:p-6">
-                    {/* Header */}
-                    <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                      <div className={`relative p-2 sm:p-3 rounded-xl bg-gradient-to-r ${skill.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                        <skill.icon className="text-lg sm:text-xl" />
+                  <div className="relative p-6">
+                    {/* Icono y título */}
+                    <div className={`flex items-start gap-4 mb-4 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                      <div className={`relative p-3 rounded-xl bg-gradient-to-r ${skill.color} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 flex-shrink-0`}>
+                        <skill.icon className="text-xl" />
                         <div className="absolute inset-0 rounded-xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
+                      <div className={`flex-1 ${isEven ? 'lg:text-left' : 'lg:text-right'}`}>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300 leading-tight">
                           {skill.title}
                         </h3>
                       </div>
                     </div>
                     
                     {/* Descripción */}
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 leading-relaxed">
-                      {skill.description}
-                    </p>
+                    <div className="mb-4">
+                      <p className={`text-sm text-gray-600 dark:text-gray-400 leading-relaxed ${isEven ? 'lg:text-left' : 'lg:text-right'}`}>
+                        {skill.description}
+                      </p>
+                    </div>
                     
                     {/* Skills en lista horizontal con badges */}
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    <div className={`flex flex-wrap gap-2 ${isEven ? 'lg:justify-start' : 'lg:justify-end justify-start'}`}>
                       {skill.skills.map((item, skillIndex) => (
                         <span
                           key={skillIndex}
-                          className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-teal-500/10 to-cyan-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 hover:border-teal-500/40 transition-all duration-300 hover:scale-105"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-gray-100/80 to-gray-50/80 dark:from-gray-700/60 dark:to-gray-600/60 text-gray-700 dark:text-gray-300 border border-gray-300/30 dark:border-gray-500/30 hover:border-teal-400/50 hover:bg-gradient-to-r hover:from-teal-50/80 hover:to-cyan-50/80 dark:hover:from-teal-900/30 dark:hover:to-cyan-900/30 hover:text-teal-700 dark:hover:text-teal-300 transition-all duration-300 hover:scale-105"
                         >
                           {item}
                         </span>
                       ))}
                     </div>
+                    
+                    {/* Indicador de habilidad */}
+                    <div className={`flex items-center mt-4 ${isEven ? 'justify-start' : 'lg:justify-end justify-start'}`}>
+                      <div className="flex items-center gap-2 text-xs text-teal-600 dark:text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span>Habilidad destacada</span>
+                        <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse" />
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Efecto shimmer */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                  <div className={`absolute inset-0 transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 ${
+                    isEven ? '-translate-x-full group-hover:translate-x-full' : 'translate-x-full group-hover:-translate-x-full'
+                  }`} />
+                  
+                  {/* Borde animado */}
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-teal-500/30 transition-colors duration-500" />
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
