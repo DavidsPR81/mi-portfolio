@@ -265,8 +265,12 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
         </span>
       </div>
       
-      {/* Tooltip SIEMPRE a la izquierda - Todas las versiones */}
-      <div className={`absolute top-1/2 -translate-y-1/2 right-full mr-2 sm:mr-6 md:mr-8 lg:mr-12 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 w-44 sm:w-48 md:w-56 lg:w-64`}>
+      {/* Tooltip responsivo - Arriba en móvil, izquierda en desktop */}
+      <div className={`absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 
+        /* Móvil: tooltip arriba */
+        bottom-full mb-2 left-1/2 -translate-x-1/2 w-56
+        /* Desktop: tooltip a la izquierda */
+        sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:right-full sm:mr-6 sm:left-auto sm:translate-x-0 sm:w-48 md:mr-8 md:w-56 lg:mr-12 lg:w-64`}>
         <div className={`bg-gradient-to-r ${config.bgGradient} backdrop-blur-sm rounded-xl border ${config.borderColor} shadow-2xl p-3 sm:p-4 text-left`}>
           <h4 className={`font-bold text-xs sm:text-sm ${config.textColor} leading-tight mb-1`}>{experience.role}</h4>
           <p className={`text-xs ${config.accentColor} mb-2 sm:mb-3`}>{experience.company}</p>
@@ -275,8 +279,12 @@ function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
             <span className="sm:hidden">Toca para detalles</span>
             <FaChevronRight className={`w-2 h-2 ${config.accentColor}`} />
           </div>
-          {/* Flecha apuntando al círculo */}
-          <div className={`absolute top-1/2 -translate-y-1/2 -right-2 w-0 h-0 border-l-8 border-r-0 border-t-4 border-b-4 border-l-white/90 dark:border-l-gray-800/90 border-t-transparent border-b-transparent`}></div>
+          {/* Flecha apuntando al círculo - Responsive */}
+          <div className={`absolute 
+            /* Móvil: flecha hacia abajo */
+            -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-b-0 border-l-transparent border-r-transparent border-t-white/90 dark:border-t-gray-800/90
+            /* Desktop: flecha hacia la derecha */
+            sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:-right-2 sm:left-auto sm:translate-x-0 sm:border-l-8 sm:border-r-0 sm:border-t-4 sm:border-b-4 sm:border-l-white/90 sm:dark:border-l-gray-800/90 sm:border-t-transparent sm:border-b-transparent`}></div>
         </div>
       </div>
     </div>
