@@ -1,4 +1,4 @@
-lify# Portafolio de David Pérez Rodríguez
+# Portafolio de David Pérez Rodríguez
 
 ¡Bienvenido a mi portafolio profesional! Soy David Pérez Rodríguez, desarrollador Fullstack especializado en frontend (React, Next.js, TypeScript), mobile apps y sistemas modernos con backend en Firebase y Node.js. Este proyecto representa mi experiencia, proyectos reales, conocimientos y motivación por seguir creciendo como desarrollador.
 
