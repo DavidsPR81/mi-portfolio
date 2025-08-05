@@ -40,18 +40,10 @@
 - Tailwind CSS  
 - Framer Motion
 
-### 🗄️ Backend y Base de Datos
-
-- Firebase (Firestore, Auth, Hosting)  
-- Node.js  
-- Express (cuando se requiere lógica externa)
-
-### 📱 Mobile & Otros
-
-- Kotlin + Android Jetpack (otros proyectos)  
-- Git & GitHub  
-- Netlify (despliegue)  
-- ESLint + Prettier (formato y calidad de código)
+### ⚙️ Herramientas y Deploy
+- Git & GitHub
+- Netlify (hosting)
+- ESLint + Prettier (calidad de código)
 
 ---
 
