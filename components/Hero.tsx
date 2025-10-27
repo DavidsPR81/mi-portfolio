@@ -143,7 +143,7 @@ export default function Hero() {
             <div className="flex flex-wrap items-center gap-6 justify-start">
               {/* Botón de descarga de CV */}
               <a
-                href="/curriculumagosto.pdf"
+                href="/curriculumoctubre.pdf"
                 download
                 aria-label="Descargar currículum en PDF"
                 className="relative flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/25 overflow-hidden"
