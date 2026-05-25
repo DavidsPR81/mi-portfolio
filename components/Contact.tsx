@@ -51,7 +51,7 @@ export default function Contact() {
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Contacto</h2>
-          <div className="text-5xl sm:text-7xl font-[900] tracking-tighter dark:text-white uppercase">
+          <div className="text-4xl sm:text-6xl lg:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
             ¿Hablamos <span className="text-gradient">ahora?</span>
           </div>
         </motion.div>

@@ -23,24 +23,24 @@ export default function About() {
   return (
     <section id="about" className="relative w-full py-32 px-6 bg-white dark:bg-[#030712] overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Descubre</h2>
-          <div className="text-5xl sm:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
+          <div className="text-4xl sm:text-6xl lg:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
             Perfil <span className="text-gradient">Profesional.</span>
           </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-20 items-center">
-          
+
           {/* Text Content */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -50,14 +50,14 @@ export default function About() {
             <div className="relative">
               <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-500 to-transparent opacity-50"></div>
               <p className="text-2xl text-gray-800 dark:text-gray-200 leading-relaxed font-semibold">
-                Desarrollador <span className="text-teal-500">Full Stack Junior</span> con formación en DAM 
+                Desarrollador <span className="text-teal-500">Full Stack Junior</span> con formación en DAM
                 y una sólida base en el desarrollo de aplicaciones web y móviles.
               </p>
             </div>
 
             <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-              Especializado en <span className="font-bold dark:text-white">React, Next.js y React Native</span>, 
-              cubriendo desde el frontend hasta el despliegue en cloud. Mi enfoque combina la precisión técnica 
+              Especializado en <span className="font-bold dark:text-white">React, Next.js y React Native</span>,
+              cubriendo desde el frontend hasta el despliegue en cloud. Mi enfoque combina la precisión técnica
               con la visión estratégica adquirida en más de <span className="text-teal-500 font-bold">17 años de experiencia</span> en gestión de equipos.
             </p>
 
@@ -84,7 +84,7 @@ export default function About() {
           </motion.div>
 
           {/* Soft Skills Bento Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {softSkills.map((skill, index) => (
               <motion.div
                 key={index}

@@ -62,22 +62,22 @@ export default function Experience() {
   return (
     <section id="experience" className="relative w-full py-32 px-6 bg-gray-50 dark:bg-[#030712]/50 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Trayectoria</h2>
-          <div className="text-5xl sm:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
+          <div className="text-4xl sm:text-6xl lg:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
             Experiencia <span className="text-gradient">&</span> Formación.
           </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {items.map((item, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -105,7 +105,7 @@ export default function Experience() {
                 <h3 className="text-2xl font-[900] dark:text-white mb-2 tracking-tight group-hover:text-teal-500 transition-colors">
                   {item.title}
                 </h3>
-                
+
                 <div className="flex flex-wrap items-center gap-4 mb-6">
                   <span className="text-teal-600 dark:text-teal-400 font-black uppercase tracking-widest text-[10px]">
                     {item.company}
