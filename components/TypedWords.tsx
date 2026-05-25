@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 
 const words = [
-  'Desarrollador Multiplataforma experto en aplicaciones web y móviles',
-  'Desarrollador FullStack con dominio en React, Kotlin y Firebase',
-  'Especialista en Automatización y Python para entornos Cloud eficientes',
-  'Analista de Datos y Ciberseguridad con visión estratégica',
-  'Creador de soluciones escalables, prácticas y orientadas al usuario',
+  'Full Stack Developer Junior (Web & Mobile)',
+  'Experto en React, Next.js y React Native',
+  'Especialista en Supabase, Firebase y Cloud Functions',
+  'Arquitectura de Producto End-to-End',
+  'Transformando ideas en soluciones digitales',
 ];
 
 export default function TypedWords() {

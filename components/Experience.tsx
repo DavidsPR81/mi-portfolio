@@ -1,472 +1,137 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
-import { FaBriefcase, FaCode, FaUsers, FaCog, FaRocket, FaChevronRight, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaBriefcase, FaGraduationCap, FaMapMarkerAlt, FaCalendarAlt, FaCode, FaBook, FaHistory, FaTools } from 'react-icons/fa';
 
-interface TextDecoderTitleProps {
-  text: string;
-  active: boolean;
-  Icon: React.ElementType;
-}
-
-function TextDecoderTitle({ text, active, Icon }: TextDecoderTitleProps) {
-  const [decoded, setDecoded] = React.useState('');
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{};:,.<>?';
-
-  React.useEffect(() => {
-    if (!active) {
-      setDecoded('');
-      return;
-    }
-
-    let animationFrame: number;
-    let frame = 0;
-    const totalFramesPerChar = 6;
-
-    const decode = () => {
-      let output = '';
-      const currentIndex = Math.floor(frame / totalFramesPerChar);
-
-      for (let i = 0; i < text.length; i++) {
-        if (i < currentIndex) {
-          output += text[i];
-        } else if (i === currentIndex && text[i] !== ' ') {
-          output += characters[Math.floor(Math.random() * characters.length)];
-        } else {
-          output += ' ';
-        }
-      }
-
-      setDecoded(output);
-
-      if (currentIndex >= text.length) {
-        cancelAnimationFrame(animationFrame);
-        setDecoded(text);
-        return;
-      }
-
-      frame++;
-      animationFrame = requestAnimationFrame(decode);
-    };
-
-    animationFrame = requestAnimationFrame(decode);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [active, text]);
-
-  return (
-    <div className="mb-12 md:mb-16">
-      <div className="flex items-center gap-3 md:gap-4 text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent tracking-wide relative select-none">
-        <Icon
-          className={`text-xl sm:text-2xl md:text-[1.8rem] text-teal-600 dark:text-teal-400 transition-all duration-700 ease-out mt-1 hover:scale-110 hover:text-teal-500 dark:hover:text-teal-300
-            ${active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}
-          `}
-        />
-        <span className="inline-block">{decoded}</span>
-      </div>
-
-      <div
-        className={`h-1 bg-gradient-to-r from-teal-600/80 to-cyan-500/80 dark:from-teal-400/80 dark:to-cyan-300/80 mt-3 rounded-full transition-all duration-300 ${
-          active ? 'line-grow' : 'w-0'
-        }`}
-      />
-
-      <style jsx>{`
-        @keyframes lineGrow {
-          0% {
-            width: 0%;
-          }
-          100% {
-            width: 100%;
-          }
-        }
-
-        .line-grow {
-          animation: lineGrow 3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-interface ExperienceData {
-  role: string;
-  company: string;
-  date: string;
-  desc: string[];
-  category: 'tech' | 'leadership' | 'technical';
-  icon: React.ElementType;
-  skills: string[];
-  location?: string;
-}
-
-const experiences: ExperienceData[] = [
-  {
-    role: 'Colaborador en Desarrollo de Software',
-    company: 'FotoGo',
-    date: 'jun. 2025 – actualidad',
-    location: 'Remoto',
-    category: 'tech',
-    icon: FaCode,
-    skills: ['React Native', 'Expo Go', 'Node.js', 'Firebase', 'Google Cloud Functions', 'UI/UX'],
-    desc: [
-      'Participación activa en el desarrollo de la app FotoGo (versión móvil/web con React Native + Expo Go).',
-      'Implementación de funcionalidades tanto en frontend como en backend.',
-      'Automatización de procesos con Google Cloud Functions (Node.js).',
-      'Configuración y administración avanzada de Firebase (Firestore, Authentication, Cloud Functions, etc.).',
-      'Apoyo en el diseño UI/UX y gestión de la lógica del ranking semanal y recompensas.',
-      'Integración de lógica de likes, comentarios, monedas y banners dinámicos en tiempo real.',
-    ],
-  },
-  {
-    role: 'Desarrollador de Aplicaciones',
-    company: 'Ayuntamiento de Rota',
-    date: '2025, 383 h',
-    location: 'Rota, España',
-    category: 'tech',
-    icon: FaRocket,
-    skills: ['Kotlin', 'PHP', 'Firebase', 'APIs RESTful', 'Android', 'UX/UI'],
-    desc: [
-      'Desarrollo de app Android para intranet municipal con mensajería interna.',
-      'Backend y frontend con Kotlin y PHP; base de datos Firebase.',
-      'Integración de APIs RESTful y enfoque UX/UI.',
-    ],
-  },
-  {
-    role: 'Jefe de Departamento',
-    company: 'Mediamarkt Puerto Real',
-    date: '2007–2024',
-    location: 'Puerto Real, España',
-    category: 'leadership',
-    icon: FaUsers,
-    skills: ['Gestión de Equipos', 'Atención al Cliente', 'Estrategias Comerciales', 'Control de Stock', 'KPIs', 'Análisis de Datos'],
-    desc: [
-      'Gestión de equipos y atención al cliente en entorno retail.',
-      'Estrategias comerciales, control de stock y cumplimiento de KPIs.',
-      'Análisis de datos para optimización de procesos.',
-    ],
-  },
-  {
-    role: 'Experiencia previa',
-    company: 'Varios puestos técnicos',
-    date: '2004–2007',
-    location: 'Andalucía, España',
-    category: 'technical',
-    icon: FaCog,
-    skills: ['Instalación Electrónica', 'Mantenimiento Técnico', 'Logística', 'Trabajo en Equipo'],
-    desc: [
-      'Instalador electrónico, técnico de mantenimiento y mozo de almacén.',
-    ],
-  },
-];
-
-function getCategoryConfig(category: ExperienceData['category']) {
-  switch (category) {
-    case 'tech':
-      return {
-        gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
-        bgGradient: 'from-emerald-50/90 to-teal-100/90 dark:from-emerald-900/90 dark:to-teal-900/90',
-        borderColor: 'border-emerald-300/50 dark:border-emerald-600/50',
-        textColor: 'text-emerald-700 dark:text-emerald-300',
-        accentColor: 'text-emerald-600 dark:text-emerald-400',
-        shadowColor: 'shadow-emerald-500/20'
-      };
-    case 'leadership':
-      return {
-        gradient: 'from-purple-500 via-indigo-500 to-blue-500',
-        bgGradient: 'from-purple-50/90 to-indigo-100/90 dark:from-purple-900/90 dark:to-indigo-900/90',
-        borderColor: 'border-purple-300/50 dark:border-purple-600/50',
-        textColor: 'text-purple-700 dark:text-purple-300',
-        accentColor: 'text-purple-600 dark:text-purple-400',
-        shadowColor: 'shadow-purple-500/20'
-      };
-    case 'technical':
-      return {
-        gradient: 'from-orange-500 via-amber-500 to-yellow-500',
-        bgGradient: 'from-orange-50/90 to-amber-100/90 dark:from-orange-900/90 dark:to-amber-900/90',
-        borderColor: 'border-orange-300/50 dark:border-orange-600/50',
-        textColor: 'text-orange-700 dark:text-orange-300',
-        accentColor: 'text-orange-600 dark:text-orange-400',
-        shadowColor: 'shadow-orange-500/20'
-      };
-  }
-}
-
-function ExperienceJourneyNode({ experience, index, isActive, onClick }: {
-  experience: ExperienceData;
-  index: number;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  const config = useMemo(() => getCategoryConfig(experience.category), [experience.category]);
-  const IconComponent = experience.icon;
-  
-  const handleClick = useCallback(() => {
-    onClick();
-  }, [onClick]);
-
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onClick();
-    }
-  }, [onClick]);
-  
-  return (
-    <div className="relative flex flex-col items-center group">
-      {/* Línea conectora con color específico */}
-      {index < experiences.length - 1 && (
-        <div className={`absolute top-16 left-1/2 transform -translate-x-1/2 w-1 h-24 bg-gradient-to-b ${config.gradient} opacity-30 z-0`} />
-      )}
-      
-      {/* Nodo principal con indicadores de interactividad */}
-      <div 
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
-        role="button"
-        aria-label={`Ver detalles de ${experience.role} en ${experience.company}`}
-        aria-pressed={isActive}
-        className={`relative z-10 w-20 h-20 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${config.gradient} shadow-xl ${config.shadowColor} cursor-pointer transition-all duration-500 hover:scale-110 hover:shadow-2xl focus:scale-110 focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-opacity-50 flex items-center justify-center group-hover:rotate-6 ${isActive ? 'scale-125 shadow-2xl' : ''}`}
-        style={{ 
-          animationDelay: `${index * 0.2}s`,
-          '--tw-ring-color': config.gradient.includes('emerald') ? 'rgb(16 185 129 / 0.5)' : config.gradient.includes('purple') ? 'rgb(147 51 234 / 0.5)' : 'rgb(249 115 22 / 0.5)'
-        } as React.CSSProperties}
-      >
-        <IconComponent className="text-white text-xl" />
-        
-        {/* Pulso animado para el nodo activo */}
-        {isActive && (
-          <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${config.gradient} animate-ping opacity-30`} />
-        )}
-        
-        {/* Indicador sutil de hover - anillo exterior con color específico */}
-        <div className={`absolute inset-0 rounded-full border-2 border-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse`} />
-        
-        {/* Indicador de click disponible con color específico */}
-        {!isActive && (
-          <div 
-            className={`absolute -top-1 -right-1 w-3 h-3 rounded-full opacity-60 animate-bounce`}
-            style={{
-              background: config.gradient.includes('emerald') ? '#10b981' : config.gradient.includes('purple') ? '#9333ea' : '#f97316',
-              animationDuration: '2s', 
-              animationDelay: `${index * 0.3}s`
-            }}
-          />
-        )}
-      </div>
-      
-      {/* Etiqueta de año con colores específicos */}
-      <div className={`mt-3 px-3 py-1 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border ${config.borderColor} shadow-lg transition-all duration-300 group-hover:scale-105 ${isActive ? `ring-2 ring-opacity-50` : ''}`}
-           style={{
-             '--tw-ring-color': config.gradient.includes('emerald') ? 'rgb(16 185 129 / 0.5)' : config.gradient.includes('purple') ? 'rgb(147 51 234 / 0.5)' : 'rgb(249 115 22 / 0.5)'
-           } as React.CSSProperties}>
-        <span className={`text-xs font-bold ${config.textColor}`}>
-          {experience.date.includes('–') ? experience.date.split('–')[0].trim() : experience.date.split(',')[0]}
-        </span>
-      </div>
-      
-      {/* Tooltip responsivo - Arriba en móvil, izquierda en desktop */}
-      <div className={`absolute opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 
-        /* Móvil: tooltip arriba */
-        bottom-full mb-2 left-1/2 -translate-x-1/2 w-56
-        /* Desktop: tooltip a la izquierda */
-        sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:right-full sm:mr-6 sm:left-auto sm:translate-x-0 sm:w-48 md:mr-8 md:w-56 lg:mr-12 lg:w-64`}>
-        <div className={`bg-gradient-to-r ${config.bgGradient} backdrop-blur-sm rounded-xl border ${config.borderColor} shadow-2xl p-3 sm:p-4 text-left`}>
-          <h4 className={`font-bold text-xs sm:text-sm ${config.textColor} leading-tight mb-1`}>{experience.role}</h4>
-          <p className={`text-xs ${config.accentColor} mb-2 sm:mb-3`}>{experience.company}</p>
-          <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-            <span className="hidden sm:inline">Clic para ver detalles</span>
-            <span className="sm:hidden">Toca para detalles</span>
-            <FaChevronRight className={`w-2 h-2 ${config.accentColor}`} />
-          </div>
-          {/* Flecha apuntando al círculo - Responsive */}
-          <div className={`absolute 
-            /* Móvil: flecha hacia abajo */
-            -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-b-0 border-l-transparent border-r-transparent border-t-white/90 dark:border-t-gray-800/90
-            /* Desktop: flecha hacia la derecha */
-            sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:-right-2 sm:left-auto sm:translate-x-0 sm:border-l-8 sm:border-r-0 sm:border-t-4 sm:border-b-4 sm:border-l-white/90 sm:dark:border-l-gray-800/90 sm:border-t-transparent sm:border-b-transparent`}></div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const MemoizedExperienceDetails = React.memo(function ExperienceDetails({ experience }: { experience: ExperienceData }) {
-  const config = useMemo(() => getCategoryConfig(experience.category), [experience.category]);
-  const IconComponent = experience.icon;
-  
-  return (
-    <div className={`bg-gradient-to-br ${config.bgGradient} backdrop-blur-sm rounded-2xl border ${config.borderColor} shadow-2xl p-6 md:p-8 animate-fade-in-up`}>
-      {/* Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${config.gradient} shadow-lg flex items-center justify-center`}>
-              <IconComponent className="text-white text-lg" />
-            </div>
-            <div>
-              <h3 className={`text-xl font-bold ${config.textColor} leading-tight`}>{experience.role}</h3>
-              <p className={`font-semibold ${config.accentColor}`}>{experience.company}</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300 mb-4">
-            <div className="flex items-center gap-1">
-              <FaClock className="text-xs" aria-hidden="true" />
-              <span>{experience.date}</span>
-            </div>
-            {experience.location && (
-              <div className="flex items-center gap-1">
-                <FaMapMarkerAlt className="text-xs" aria-hidden="true" />
-                <span>{experience.location}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-      
-      {/* Descripción */}
-      <div className="mb-6">
-        <h4 className={`font-semibold ${config.textColor} mb-3 flex items-center gap-2`}>
-          <FaChevronRight className={`${config.accentColor} text-sm`} aria-hidden="true" />
-          Responsabilidades
-        </h4>
-        <ul className="space-y-2" role="list">
-          {experience.desc.map((item, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
-              <span className={`${config.accentColor} font-bold mt-1 flex-shrink-0`} aria-hidden="true">•</span>
-              <span className="text-sm leading-relaxed">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      
-      {/* Skills */}
-      <div>
-        <h4 className={`font-semibold ${config.textColor} mb-3 flex items-center gap-2`}>
-          <FaChevronRight className={`${config.accentColor} text-sm`} aria-hidden="true" />
-          Tecnologías y Competencias
-        </h4>
-        <div className="flex flex-wrap gap-2">
-          {experience.skills.map((skill, idx) => (
-            <span
-              key={idx}
-              className={`px-3 py-1 bg-white/70 dark:bg-gray-800/70 ${config.accentColor} text-xs font-medium rounded-full border ${config.borderColor} hover:scale-105 transition-transform duration-200 shadow-sm`}
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-});
-
+/**
+ * Experience Component - Timeline Estratégico
+ * Visualiza la trayectoria profesional y académica en orden cronológico inverso, 
+ * unificando la experiencia en gestión con la formación técnica de vanguardia.
+ */
 export default function Experience() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeExperience, setActiveExperience] = useState(0);
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
-  const handleExperienceChange = useCallback((index: number) => {
-    setActiveExperience(index);
-  }, []);
+  // Items de trayectoria - Ordenados de más reciente a más antiguo
+  const items = [
+    {
+      type: 'work',
+      title: 'Desarrollador Full Stack (Proyecto Propio)',
+      company: 'TVSmartMatch',
+      period: '2024 - Actualidad',
+      location: 'Remoto',
+      description: 'Desarrollo end-to-end de plataforma web y mobile con Next.js, React Native y Supabase. Automatización en Google Cloud.',
+      skills: ['Next.js', 'React Native', 'Supabase', 'GCP'],
+      icon: <FaTools />,
+      color: 'text-teal-500',
+      bgColor: 'bg-teal-500/10'
+    },
+    {
+      type: 'academic',
+      title: 'Full Stack Developer',
+      company: 'UCAM Educa Open',
+      period: '2025',
+      location: 'Online',
+      description: 'Curso Universitario (200h) integral cubriendo tecnologías Frontend y Backend modernas.',
+      icon: <FaCode />,
+      color: 'text-emerald-500',
+      bgColor: 'bg-emerald-500/10'
+    },
+    {
+      type: 'academic',
+      title: 'CFGS Desarrollo de Aplicaciones Multiplataforma',
+      company: 'Ilerna',
+      period: '2023 - 2025',
+      location: 'España',
+      description: 'Formación técnica superior (2000h) enfocada en desarrollo web, móvil y sistemas gestores de bases de datos.',
+      icon: <FaBook />,
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10'
+    },
+    {
+      type: 'work',
+      title: 'Responsable de Departamento',
+      company: 'MediaMarkt Bahía de Cádiz',
+      period: '2007 - 2024',
+      location: 'Cádiz, España',
+      description: 'Dirección y coordinación de equipos multidisciplinares, gestión de KPIs comerciales y optimización de procesos operativos. Incremento de ventas del 10%.',
+      icon: <FaHistory />,
+      color: 'text-orange-500',
+      bgColor: 'bg-orange-500/10'
+    }
+  ];
 
   return (
-    <section
-      id="experience"
-      ref={ref}
-      className="w-full py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300 relative animate-fade-in-up overflow-hidden"
-      style={{ fontFamily: "'Inter', sans-serif" }}
-      aria-labelledby="experience-title"
-    >
-      {/* Patrón geométrico de fondo */}
-      <div className="absolute inset-0 opacity-5 dark:opacity-10" aria-hidden="true">
-        <div className="absolute top-32 right-20 w-28 h-28 border-2 border-teal-500 rounded-full animate-pulse" style={{animationDuration: '5s'}}></div>
-        <div className="absolute top-20 left-32 w-20 h-20 border-2 border-cyan-400 rotate-45" style={{animation: 'spin 25s linear infinite'}}></div>
-        <div className="absolute bottom-40 right-40 w-16 h-16 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full opacity-20 animate-bounce" style={{animationDuration: '7s'}}></div>
-        <div className="absolute bottom-32 left-20 w-12 h-12 border-2 border-teal-400 rounded-lg rotate-12 animate-pulse" style={{animationDuration: '4s'}}></div>
-        <div className="absolute top-1/2 right-10 w-6 h-6 bg-cyan-400 rounded-full animate-ping" style={{animationDuration: '6s'}}></div>
-        <div className="absolute top-2/3 left-10 w-8 h-8 border border-teal-500 rotate-45 animate-pulse" style={{animationDuration: '8s'}}></div>
-      </div>
-      
-      {/* Contenedor principal */}
-      <div className="max-w-[1400px] w-full mx-auto relative z-20">
-        <div id="experience-title">
-          <TextDecoderTitle text="Experiencia Profesional" active={isVisible} Icon={FaBriefcase} />
-        </div>
+    <section id="experience" className="relative w-full py-32 px-6 bg-gray-50 dark:bg-[#030712]/50 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         
-        {/* Resumen de trayectoria */}
-        <div className="w-full mb-16">
-          <div className="text-left max-w-full">
-            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-              <strong>21 años</strong> de trayectoria profesional que abarca desde roles técnicos hasta liderazgo comercial, 
-              culminando en una <strong>transición exitosa al desarrollo de software</strong> con proyectos reales en tecnologías modernas. 
-              Esta diversidad de experiencias me ha proporcionado una perspectiva integral que combina conocimiento técnico, 
-              habilidades de gestión y comprensión profunda de las necesidades del usuario final.
-            </p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
+        >
+          <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Trayectoria</h2>
+          <div className="text-5xl sm:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
+            Experiencia <span className="text-gradient">&</span> Formación.
           </div>
-        </div>
-        
-        {/* Journey Map Interactivo */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Timeline Vertical Interactivo */}
-          <div className="flex flex-col items-center space-y-8">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400 text-center">
-                Mapa de Trayectoria Profesional
-              </h3>
-              {/* Indicador sutil de interactividad */}
-              <div className="flex items-center gap-1 px-3 py-1 bg-teal-50 dark:bg-teal-900/30 rounded-full border border-teal-200 dark:border-teal-700/50">
-                <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
-                <span className="text-xs text-teal-600 dark:text-teal-400 font-medium">Interactivo</span>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {items.map((item, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              {...({ className: "group relative bg-white dark:bg-gray-900 rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl overflow-hidden" } as any)}
+            >
+              {/* Background Decoration Icon */}
+              <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
+                {React.cloneElement(item.icon as React.ReactElement<any>, { size: 180 })}
               </div>
-            </div>
-            
-            <div className="flex flex-col space-y-10 md:space-y-8" role="tablist" aria-label="Experiencias profesionales">
-              {experiences.map((experience, index) => (
-                <div key={index} role="tab" aria-selected={activeExperience === index} aria-controls={`experience-panel-${index}`}>
-                  <ExperienceJourneyNode
-                    experience={experience}
-                    index={index}
-                    isActive={activeExperience === index}
-                    onClick={() => handleExperienceChange(index)}
-                  />
+
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between mb-8">
+                  {/* Icono superior izquierdo corregido para consistencia con Skills */}
+                  <div className={`w-14 h-14 rounded-2xl ${item.bgColor} flex items-center justify-center text-2xl shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 ${item.color}`}>
+                    {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
+                  </div>
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] px-4 py-2 bg-gray-50 dark:bg-gray-800 rounded-full border border-gray-100 dark:border-gray-700 text-gray-400">
+                    {item.period}
+                  </span>
                 </div>
-              ))}
-            </div>
-            
-            {/* Indicador de progresión con hint de interactividad */}
-            <div className="mt-8 text-center space-y-3">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/50 dark:to-cyan-900/50 rounded-full border border-teal-200 dark:border-teal-700">
-                <span className="text-sm font-medium text-teal-700 dark:text-teal-300">
-                  Evolución: Técnico → Líder → Desarrollador
-                </span>
+
+                <h3 className="text-2xl font-[900] dark:text-white mb-2 tracking-tight group-hover:text-teal-500 transition-colors">
+                  {item.title}
+                </h3>
+                
+                <div className="flex flex-wrap items-center gap-4 mb-6">
+                  <span className="text-teal-600 dark:text-teal-400 font-black uppercase tracking-widest text-[10px]">
+                    {item.company}
+                  </span>
+                  <span className="text-[10px] text-gray-400 flex items-center gap-1.5 font-bold uppercase tracking-widest">
+                    <FaMapMarkerAlt size={10} />
+                    {item.location}
+                  </span>
+                </div>
+
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-medium text-base mb-8">
+                  {item.description}
+                </p>
+
+                {item.skills && (
+                  <div className="mt-auto flex flex-wrap gap-2">
+                    {item.skills.map((skill, sIdx) => (
+                      <span key={sIdx} className="text-[8px] font-black uppercase tracking-widest px-3 py-1.5 bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-lg border border-gray-100 dark:border-gray-700">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              {/* Hint sutil de navegación */}
-              <div className="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                <FaChevronRight className="w-3 h-3 animate-pulse" />
-                <span className="hidden sm:inline">Haz clic en los nodos para explorar</span>
-                <span className="sm:hidden">Toca los nodos para explorar</span>
-                <FaChevronRight className="w-3 h-3 animate-pulse" style={{animationDelay: '0.5s'}} />
-              </div>
-            </div>
-          </div>
-          
-          {/* Panel de Detalles - Alineado con los botones */}
-          <div className="lg:mt-20" role="tabpanel" id={`experience-panel-${activeExperience}`} aria-labelledby={`experience-tab-${activeExperience}`}>
-            <MemoizedExperienceDetails experience={experiences[activeExperience]} />
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

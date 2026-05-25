@@ -3,13 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import AboutMe from '../components/About';
-import Education from '../components/Education';
-import Projects from '../components/Projects';
+import About from '../components/About';
 import Experience from '../components/Experience';
+import Projects from '../components/Projects';
 import Skills from '../components/Skills';
-import SoftSkills from '../components/SoftSkills';
-import Achievements from '../components/Achievements';
 import Contact from '../components/Contact';
 
 type Theme = 'light' | 'dark' | 'auto';
@@ -28,7 +25,6 @@ export default function Home() {
     } else if (currentTheme === 'light') {
       document.documentElement.classList.remove('dark');
     } else if (currentTheme === 'auto') {
-      // Modo automático: usar preferencia del sistema O hora del día
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       const isNightTime = !isDaytime();
       
@@ -47,7 +43,6 @@ export default function Home() {
     setTheme(validTheme);
     applyTheme(validTheme);
 
-    // Escuchar cambios en la preferencia del sistema
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleSystemChange = () => {
       if (theme === 'auto') {
@@ -57,12 +52,11 @@ export default function Home() {
     
     mediaQuery.addEventListener('change', handleSystemChange);
 
-    // Verificar cambios de hora cada minuto para el modo automático
     const timeInterval = setInterval(() => {
       if (theme === 'auto') {
         applyTheme('auto');
       }
-    }, 60000); // Cada minuto
+    }, 60000);
 
     return () => {
       mediaQuery.removeEventListener('change', handleSystemChange);
@@ -77,19 +71,15 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen">
+    <div className="bg-white text-gray-800 dark:bg-[#030712] dark:text-gray-100 transition-colors duration-300 min-h-screen">
       <Navbar theme={theme} onThemeChange={handleThemeChange} />
 
-      {/* Contenedor general con padding y max width para las secciones */}
-       <main className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-28 2xl:px-36">
+      <main className="max-w-[1920px] mx-auto">
         <Hero />
-        <AboutMe />
-        <Education />
-        <Projects />
+        <About />
         <Experience />
+        <Projects />
         <Skills />
-        <SoftSkills />
-        <Achievements />
         <Contact />
       </main>
     </div>

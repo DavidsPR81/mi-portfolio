@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaMoon, FaSun, FaAdjust, FaBars, FaTimes } from 'react-icons/fa';
 
 type Theme = 'light' | 'dark' | 'auto';
@@ -12,30 +13,24 @@ interface NavbarProps {
 
 const navLinks = [
   { label: 'Inicio', href: '#home' },
-  { label: 'Sobre Mí', href: '#about' },
-  { label: 'Formación', href: '#education' },
+  { label: 'Perfil', href: '#about' },
+  { label: 'Trayectoria', href: '#experience' },
   { label: 'Proyectos', href: '#projects' },
-  { label: 'Experiencia', href: '#experience' },
-  { label: 'Habilidades', href: '#skills' },
-  { label: 'Aptitudes', href: '#aptitudes' },
-  { label: 'Logros', href: '#logros' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Contacto', href: '#contact' },
 ];
 
 export default function Navbar({ theme, onThemeChange }: NavbarProps) {
   const [activeHash, setActiveHash] = useState('#home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
-  // Detectar sección activa
   useEffect(() => {
-    const handleHashChange = () => {
-      setActiveHash(window.location.hash || '#home');
-    };
-
     const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
       const sections = navLinks.map(link => link.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 120;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const element = document.getElementById(sections[i]);
@@ -46,52 +41,10 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Cerrar menú móvil al hacer clic fuera
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.body.style.overflow = 'unset';
-    };
-  }, [mobileMenuOpen]);
-
-  const handleNavClick = (href: string) => {
-    setMobileMenuOpen(false);
-    const element = document.getElementById(href.substring(1));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const getThemeIcon = () => {
-    switch (theme) {
-      case 'light': return <FaSun className="w-4 h-4" />;
-      case 'dark': return <FaMoon className="w-4 h-4" />;
-      case 'auto': return <FaAdjust className="w-4 h-4" />;
-    }
-  };
 
   const cycleTheme = () => {
     const themes: Theme[] = ['light', 'dark', 'auto'];
@@ -100,151 +53,134 @@ export default function Navbar({ theme, onThemeChange }: NavbarProps) {
     onThemeChange(themes[nextIndex]);
   };
 
+  const getThemeIcon = () => {
+    switch (theme) {
+      case 'light': return <FaSun />;
+      case 'dark': return <FaMoon />;
+      case 'auto': return <FaAdjust />;
+    }
+  };
+
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo/Nombre - Alineado exactamente donde empiezan las secciones */}
-            <div className="flex-shrink-0">
-              <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-500 dark:from-teal-400 dark:to-cyan-300 bg-clip-text text-transparent drop-shadow-sm">
-                David Pérez Rodríguez
-              </h1>
-            </div>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${isScrolled ? 'py-4' : 'py-8'
+      }`}>
+      <div className="max-w-7xl mx-auto px-6">
+        <div className={`relative flex items-center justify-between transition-all duration-500 p-2 rounded-[2rem] ${isScrolled
+          ? 'bg-white/70 dark:bg-[#030712]/70 backdrop-blur-2xl border border-white/20 dark:border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
+          : 'bg-transparent'
+          }`}>
 
-            {/* Navegación y controles - Alineados exactamente donde terminan las secciones */}
-            <div className="flex items-center space-x-4">
-              {/* Navegación Desktop */}
-              <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
-                {navLinks.map(({ label, href }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    className={`px-2 lg:px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                      activeHash === href
-                        ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 shadow-sm'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400'
-                    }`}
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-
-              {/* Controles de la derecha */}
-              <div className="flex items-center space-x-2">
-                {/* Toggle de tema */}
-                <button
-                  onClick={cycleTheme}
-                  className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                  aria-label="Cambiar tema"
-                >
-                  {getThemeIcon()}
-                </button>
-
-                {/* Botón menú móvil */}
-                <div className="md:hidden">
-                  <button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                    aria-label="Abrir menú"
-                  >
-                    {mobileMenuOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Efecto de brillo en el navbar */}
-        <div className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
-          mobileMenuOpen 
-            ? 'bg-gradient-to-r from-teal-500/20 via-cyan-500/15 to-teal-500/20 dark:from-teal-400/15 dark:via-cyan-400/10 dark:to-teal-400/15 opacity-100'
-            : 'bg-gradient-to-r from-teal-500/30 via-cyan-500/20 to-teal-500/30 dark:from-teal-400/20 dark:via-cyan-400/15 dark:to-teal-400/20 opacity-70'
-        }`}>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" style={{animationDuration: '3s'}} />
-        </div>
-      </nav>
-
-      {/* MENÚ MÓVIL PROFESIONAL - OVERLAY */}
-      {mobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          
-          {/* Menú móvil */}
-          <div 
-            ref={mobileMenuRef}
-            className="fixed top-16 left-0 right-0 z-50 md:hidden bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto"
+          {/* Logo Section */}
+          <motion.div
+            {...({ className: "flex items-center gap-3 pl-2 group cursor-pointer" } as any)}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* Header del menú */}
-            <div className="px-6 py-4 border-b border-gray-200/30 dark:border-gray-700/30">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Navegación
-                </h2>
-                <div className="flex items-center space-x-2">
-                  {/* Toggle de tema en móvil */}
-                  <button
-                    onClick={cycleTheme}
-                    className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-300"
-                    aria-label="Cambiar tema"
-                  >
-                    {getThemeIcon()}
-                  </button>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300"
-                    aria-label="Cerrar menú"
-                  >
-                    <FaTimes className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-[0_0_20px_rgba(20,184,166,0.3)] overflow-hidden">
+              <motion.div
+                {...({ className: "absolute inset-0 bg-white/20" } as any)}
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
+              <span className="relative z-10">D</span>
             </div>
+            <div className="flex flex-col leading-none">
+              <span className="text-sm font-black dark:text-white tracking-tighter uppercase">
+                David<span className="text-teal-500">Pérez</span>
+              </span>
+              <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 tracking-[0.2em] uppercase">
+                Portfolio v2
+              </span>
+            </div>
+          </motion.div>
 
-            {/* Lista de navegación */}
-            <div className="px-4 py-2">
-              <ul className="space-y-1">
-                {navLinks.map(({ label, href }, index) => (
-                  <li key={href}>
-                    <button
-                      onClick={() => handleNavClick(href)}
-                      className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900 ${
-                        activeHash === href
-                          ? 'bg-gradient-to-r from-teal-500/20 to-cyan-500/20 dark:from-teal-400/20 dark:to-cyan-400/20 text-teal-700 dark:text-teal-300 shadow-lg border border-teal-200/50 dark:border-teal-700/50'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-teal-50 hover:to-cyan-50 dark:hover:from-teal-900/10 dark:hover:to-cyan-900/10 hover:text-teal-600 dark:hover:text-teal-400 hover:shadow-md'
-                      }`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-base">{label}</span>
-                        {activeHash === href && (
-                          <div className="w-2 h-2 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-sm" />
-                        )}
-                      </div>
-                      {activeHash === href && (
-                        <div className="mt-1 h-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 dark:from-teal-300 dark:to-cyan-300 rounded-full shadow-sm" />
-                      )}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Footer del menú */}
-            <div className="px-6 py-4 border-t border-gray-200/30 dark:border-gray-700/30 bg-gray-50/50 dark:bg-gray-800/50">
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                Portfolio Profesional • David Pérez Rodríguez
-              </p>
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1 bg-gray-50/50 dark:bg-gray-900/40 p-1 rounded-2xl border border-gray-100/50 dark:border-gray-800/50">
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                {...({ className: "relative px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-colors duration-300" } as any)}
+                onMouseEnter={() => setHoveredLink(link.href)}
+                onMouseLeave={() => setHoveredLink(null)}
+                animate={{
+                  color: activeHash === link.href ? '#14b8a6' : '#6b7280'
+                }}
+              >
+                <span className="relative z-10">{link.label}</span>
+                {activeHash === link.href && (
+                  <motion.div
+                    layoutId="activeNav"
+                    {...({ className: "absolute inset-0 bg-white dark:bg-gray-800 shadow-sm rounded-xl" } as any)}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                {hoveredLink === link.href && activeHash !== link.href && (
+                  <motion.div
+                    layoutId="hoverNav"
+                    {...({ className: "absolute inset-0 bg-gray-200/50 dark:bg-gray-800/30 rounded-xl" } as any)}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </motion.a>
+            ))}
           </div>
-        </>
-      )}
-    </>
+
+          {/* Controls */}
+          <div className="flex items-center gap-2 pr-2">
+            <motion.button
+              onClick={cycleTheme}
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
+              {...({ className: "w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-800 hover:text-teal-500 transition-colors" } as any)}
+            >
+              {getThemeIcon()}
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              {...({ className: "md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-teal-500 text-white shadow-lg shadow-teal-500/20" } as any)}
+            >
+              {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </motion.button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            {...({ className: "md:hidden absolute top-full left-6 right-6 mt-4 p-6 bg-white/90 dark:bg-[#030712]/90 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-white/5 shadow-2xl" } as any)}
+          >
+            <div className="grid grid-cols-2 gap-4">
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  {...({
+                    className: `p-4 rounded-2xl text-center text-xs font-black uppercase tracking-widest border transition-all ${activeHash === link.href
+                        ? 'bg-teal-500 text-white border-teal-500 shadow-lg shadow-teal-500/20'
+                        : 'bg-gray-50 dark:bg-gray-900 text-gray-500 border-gray-100 dark:border-gray-800'
+                      }`
+                  } as any)}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }
