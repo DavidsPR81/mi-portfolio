@@ -14,12 +14,15 @@ import { FaDownload, FaGithub, FaLinkedin, FaCode, FaMobileAlt, FaCloud } from '
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 80]);
-  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+  const opacityValue = useTransform(scrollY, [0, 200], [1, 0]);
+  const responsiveOpacity = useTransform(opacityValue, (v) => isLargeScreen ? v : 1);
 
   useEffect(() => {
+    setMounted(true);
     // Detectar tamaño de pantalla para efectos de parallax (solo desktop)
     const handleResize = () => setIsLargeScreen(window.innerWidth > 1024);
     handleResize();
@@ -37,9 +40,9 @@ export default function Hero() {
   }, []);
 
   const floatingTags = [
-    { icon: <FaCode />, text: 'Full Stack', pos: 'top-[5%] -left-[5%] sm:top-10 sm:-left-12', color: 'bg-teal-500', delay: 0 },
-    { icon: <FaMobileAlt />, text: 'Web & Móvil', pos: 'bottom-[15%] -right-[2%] sm:bottom-24 sm:-right-10', color: 'bg-cyan-500', delay: 1 },
-    { icon: <FaCloud />, text: 'Nube & Automatización', pos: 'top-[25%] -right-[5%] sm:top-1/4 sm:-right-20', color: 'bg-emerald-500', delay: 2 }
+    { icon: <FaCode />, pos: 'top-[10%] -left-[8%] sm:top-12 sm:-left-10', color: 'from-teal-400 to-emerald-500', delay: 0 },
+    { icon: <FaMobileAlt />, pos: 'bottom-[20%] -right-[6%] sm:bottom-28 sm:-right-8', color: 'from-cyan-400 to-blue-500', delay: 1 },
+    { icon: <FaCloud />, pos: 'top-[30%] -right-[8%] sm:top-1/4 sm:-right-12', color: 'from-emerald-400 to-teal-500', delay: 2 }
   ];
 
   return (
@@ -52,21 +55,21 @@ export default function Hero() {
         id="home"
         className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white dark:bg-[#030712] pt-28 pb-16 lg:pt-24 lg:pb-12"
       >
-        {/* Background Mesh - Opacidad reducida en móvil para rendimiento */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Background Mesh - Solo en Desktop para maximizar compatibilidad y rendimiento móvil */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden lg:block">
           <motion.div
             {...({ className: "absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-teal-500/10 dark:bg-teal-500/5 blur-[120px] rounded-full" } as any)}
-            animate={{
+            animate={isLargeScreen ? {
               x: mousePosition.x / 45,
               y: mousePosition.y / 45,
-            }}
+            } : {}}
           />
           <motion.div
             {...({ className: "absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-cyan-500/10 dark:bg-cyan-500/5 blur-[120px] rounded-full" } as any)}
-            animate={{
+            animate={isLargeScreen ? {
               x: -mousePosition.x / 45,
               y: -mousePosition.y / 45,
-            }}
+            } : {}}
           />
         </div>
 
@@ -79,7 +82,10 @@ export default function Hero() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              style={{ y: isLargeScreen ? y1 : 0, opacity }}
+              style={{
+                y: isLargeScreen ? y1 : 0,
+                opacity: responsiveOpacity
+              }}
             >
               <motion.h1
                 {...({ className: "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight dark:text-white mb-2 tracking-tight" } as any)}
@@ -101,7 +107,7 @@ export default function Hero() {
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                 <motion.a
-                  href="/curriculum.pdf"
+                  href="/curriculummayo1.pdf"
                   download
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -132,24 +138,32 @@ export default function Hero() {
 
             {/* Columna Derecha: Imagen - CORREGIDA PARA MÓVIL */}
             <motion.div
-              {...({ className: "flex-1 relative order-1 lg:order-2 mb-8 lg:mb-0" } as any)}
-              initial={{ opacity: 0, scale: 0.9 }}
+              {...({ className: "flex-1 relative order-1 lg:order-2 mb-12 lg:mb-0" } as any)}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 0.8 }}
             >
               {/* Contenedor con aspecto forzado para asegurar que Image fill funcione siempre */}
-              <div className="relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[420px] mx-auto aspect-square">
+              <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[420px] mx-auto aspect-square shadow-2xl rounded-[3rem]">
 
-                {/* Smart Floating Tags */}
+                {/* Smart Floating Tags - Modernized (Icons Only) */}
                 {floatingTags.map((tag, i) => (
                   <motion.div
                     key={i}
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, delay: tag.delay }}
-                    {...({ className: `absolute ${tag.pos} z-30 flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl ${tag.color} text-white shadow-2xl backdrop-blur-md` } as any)}
+                    animate={{
+                      y: [0, -15, 0],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      delay: tag.delay,
+                      ease: "easeInOut"
+                    }}
+                    whileHover={{ scale: 1.1, rotate: 0 }}
+                    {...({ className: `absolute ${tag.pos} z-30 w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center rounded-2xl bg-gradient-to-br ${tag.color} text-white shadow-[0_10px_30px_-5px_rgba(0,0,0,0.3)] backdrop-blur-md border border-white/20` } as any)}
                   >
-                    <span className="text-base sm:text-lg">{tag.icon}</span>
-                    <span className="text-[8px] sm:text-[10px] font-black uppercase tracking-widest whitespace-nowrap">{tag.text}</span>
+                    <span className="text-xl sm:text-2xl">{tag.icon}</span>
                   </motion.div>
                 ))}
 
@@ -168,14 +182,15 @@ export default function Hero() {
                 </motion.div>
 
                 {/* Contenedor de la Imagen con z-index alto y overflow hidden */}
-                <div className="relative z-20 w-full h-full rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden border-[6px] sm:border-[8px] border-white dark:border-gray-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] bg-gray-100 dark:bg-gray-900">
+                <div className="relative z-20 w-full h-full rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden border-[6px] sm:border-[8px] border-white dark:border-gray-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] bg-gray-200 dark:bg-gray-800">
                   <Image
                     src="/fotocurriculum1-Photoroom.jpg"
                     alt="David Pérez"
-                    fill
-                    sizes="(max-width: 768px) 280px, (max-width: 1024px) 360px, 420px"
-                    className="object-cover"
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover"
                     priority
+                    quality={100}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-transparent"></div>
                 </div>

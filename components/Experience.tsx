@@ -66,7 +66,7 @@ export default function Experience() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Trayectoria</h2>
@@ -81,7 +81,7 @@ export default function Experience() {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               {...({ className: "group relative bg-white dark:bg-gray-900 rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl overflow-hidden" } as any)}
@@ -93,9 +93,9 @@ export default function Experience() {
 
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between mb-8">
-                  {/* Icono superior izquierdo corregido para consistencia con Skills */}
+                  {/* Icono superior izquierdo corregido para usar el icono específico de cada item */}
                   <div className={`w-14 h-14 rounded-2xl ${item.bgColor} flex items-center justify-center text-2xl shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 ${item.color}`}>
-                    {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
+                    {item.icon}
                   </div>
                   <span className="text-[9px] font-black uppercase tracking-[0.2em] px-4 py-2 bg-gray-50 dark:bg-gray-800 rounded-full border border-gray-100 dark:border-gray-700 text-gray-400">
                     {item.period}

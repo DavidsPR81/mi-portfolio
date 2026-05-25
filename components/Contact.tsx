@@ -47,7 +47,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Contacto</h2>
@@ -65,7 +65,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10, scale: 1.02 }}
               {...({ className: "group p-8 bg-gray-50 dark:bg-gray-900/50 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 hover:border-teal-500/30 transition-all duration-500 flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:shadow-teal-500/5" } as any)}
@@ -88,7 +88,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "mt-32 pt-12 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-6" } as any)}
         >
           <div className="flex items-center gap-3">

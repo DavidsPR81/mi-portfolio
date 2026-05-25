@@ -70,7 +70,7 @@ export default function Projects() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Portafolio</h2>
@@ -85,7 +85,7 @@ export default function Projects() {
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               {...({ className: "group relative bg-gray-50 dark:bg-gray-900/50 rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl overflow-hidden" } as any)}

@@ -28,7 +28,7 @@ export default function About() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Descubre</h2>
@@ -43,7 +43,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8 }}
             {...({ className: "space-y-8" } as any)}
           >
@@ -61,7 +61,7 @@ export default function About() {
               con la visión estratégica adquirida en más de <span className="text-teal-500 font-bold">17 años de experiencia</span> en gestión de equipos.
             </p>
 
-            <div className="grid grid-cols-2 gap-6 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
               <div className="p-8 rounded-[2.5rem] bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 relative overflow-hidden group hover:shadow-xl transition-all duration-500">
                 {/* Icono superior izquierdo para consistencia */}
                 <div className="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-xl text-teal-500 mb-4 group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-sm">
@@ -90,7 +90,7 @@ export default function About() {
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5, scale: 1.02 }}
                 {...({ className: `p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900/50 transition-all hover:shadow-2xl relative overflow-hidden group` } as any)}

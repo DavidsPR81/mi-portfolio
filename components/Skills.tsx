@@ -60,7 +60,7 @@ export default function Skills() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
         >
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Competencias</h2>
@@ -78,7 +78,7 @@ export default function Skills() {
                 key={index}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: index * 0.1 }}
                 {...({ className: "p-10 bg-white dark:bg-gray-900 rounded-[3rem] border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl group relative overflow-hidden" } as any)}
               >
@@ -111,7 +111,7 @@ export default function Skills() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
             {...({ className: "p-10 bg-white dark:bg-gray-900 rounded-[3rem] border border-gray-100 dark:border-gray-800 relative overflow-hidden group hover:shadow-2xl transition-all duration-500" } as any)}
           >
             <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
