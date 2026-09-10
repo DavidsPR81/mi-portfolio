@@ -2,149 +2,192 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaRocket, FaMobileAlt, FaDatabase, FaGlobe, FaCogs, FaProjectDiagram } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub, FaGooglePlay } from 'react-icons/fa';
+import SectionHeader from './SectionHeader';
+import { projects, type Project } from '../data/portfolio';
 
-/**
- * Projects Component - Showcase de Ingeniería
- * Presenta proyectos seleccionados con una estética de "Glassmorphism" 
- * y badges tecnológicos dinámicos para resaltar el stack Full Stack.
- */
-export default function Projects() {
-  // Datos de proyectos - Sincronizados con el currículum v2
-  const projects = [
-    {
-      title: 'TVSmartMatch',
-      description: 'Plataforma de comparación y recomendación de televisores con IA. Arquitectura web y móvil.',
-      tech: ['Next.js', 'React Native', 'Supabase', 'GCP'],
-      link: 'https://tvsmartmatch.com',
-      type: 'Web & Mobile',
-      icon: <FaRocket />,
-      bgIcon: <FaProjectDiagram />,
-      color: 'text-teal-500',
-      bgColor: 'bg-teal-500/10',
-      gradient: 'from-teal-500 to-emerald-500',
-      highlights: ['Autenticación & Perfiles', 'Base de datos relacional', 'Landing SEO', 'Cloud Functions']
-    },
-    {
-      title: 'FotoGo',
-      description: 'Red social de fotografía con rankings, concursos y automatización backend.',
-      tech: ['React Native', 'Firebase', 'Cloud Functions', 'TS'],
-      type: 'Mobile App',
-      icon: <FaMobileAlt />,
-      bgIcon: <FaGlobe />,
-      color: 'text-cyan-500',
-      bgColor: 'bg-cyan-500/10',
-      gradient: 'from-cyan-500 to-blue-500',
-      highlights: ['Gestión de contenido', 'Lógica de concursos', 'UI/UX centrado en usuario']
-    },
-    {
-      title: 'Intranet Rota',
-      description: 'Aplicación Android para comunicación interna municipal y notificaciones push.',
-      tech: ['Kotlin', 'PHP', 'Firebase', 'REST API'],
-      type: 'Android App',
-      icon: <FaDatabase />,
-      bgIcon: <FaCogs />,
-      color: 'text-emerald-500',
-      bgColor: 'bg-emerald-500/10',
-      gradient: 'from-emerald-500 to-teal-500',
-      highlights: ['Mensajería interna', 'Notificaciones push', 'Integración API REST']
-    },
-    {
-      title: 'Portfolio v2',
-      description: 'Portfolio profesional optimizado para SEO con animaciones y mejora UX/UI.',
-      tech: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'TS'],
-      type: 'Web Portfolio',
-      icon: <FaGlobe />,
-      bgIcon: <FaRocket />,
-      color: 'text-blue-500',
-      bgColor: 'bg-blue-500/10',
-      gradient: 'from-blue-500 to-indigo-500',
-      highlights: ['Diseño responsive', 'Optimización SEO', 'Ultra Pro Design']
-    }
-  ];
+function LinkIcon({ label }: { label: string }) {
+  const lower = label.toLowerCase();
+  if (lower.includes('play')) return <FaGooglePlay size={15} />;
+  if (lower.includes('código')) return <FaGithub size={15} />;
+  return <FaExternalLinkAlt size={13} />;
+}
+
+function Featured({ project }: { project: Project }) {
+  const play = project.links.find((l) => l.label.toLowerCase().includes('play'));
+  const restLinks = project.links.filter((l) => l !== play);
 
   return (
-    <section id="projects" className="relative w-full py-32 px-6 bg-white dark:bg-[#030712] overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          {...({ className: "flex flex-col items-center text-center mb-24" } as any)}
-        >
-          <h2 className="text-sm font-black uppercase tracking-[0.3em] text-teal-500 mb-4">Portafolio</h2>
-          <div className="text-4xl sm:text-6xl lg:text-7xl font-[900] tracking-tighter dark:text-white uppercase text-balance">
-            Proyectos <span className="text-gradient">Destacados.</span>
+    <motion.article
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden rounded-[2rem] bg-elevated text-ink border border-line shadow-card"
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(800px 380px at 100% 0%, var(--glow), transparent 55%)',
+        }}
+      />
+      <div className="relative grid lg:grid-cols-[1.2fr_0.8fr] gap-10 p-8 md:p-12">
+        <div>
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            <span className="inline-flex items-center gap-2 rounded-full bg-accent text-on-inverse px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em]">
+              <FaGooglePlay /> En Google Play
+            </span>
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-mute">
+              {project.type}
+            </span>
           </div>
-        </motion.div>
+          <h3 className="display text-4xl md:text-6xl mb-5 text-ink">{project.title}</h3>
+          <p className="text-lg text-mute leading-relaxed mb-8 max-w-2xl">
+            {project.description}
+          </p>
+          <ul className="grid sm:grid-cols-2 gap-3 mb-10">
+            {project.highlights.map((item) => (
+              <li key={item} className="flex gap-3 text-sm md:text-base text-ink">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-3">
+            {play ? (
+              <motion.a
+                href={play.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 rounded-2xl bg-accent text-on-inverse px-6 py-3.5 text-sm font-bold uppercase tracking-widest"
+              >
+                <FaGooglePlay /> Google Play
+              </motion.a>
+            ) : null}
+            {restLinks.map((link) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3 }}
+                className="inline-flex items-center gap-2 rounded-2xl border border-line px-5 py-3.5 text-sm font-bold uppercase tracking-widest hover:border-accent hover:text-accent"
+              >
+                <LinkIcon label={link.label} />
+                {link.label}
+              </motion.a>
+            ))}
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              {...({ className: "group relative bg-gray-50 dark:bg-gray-900/50 rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl overflow-hidden" } as any)}
+        <div className="flex flex-col justify-between gap-8 rounded-3xl bg-page border border-line p-7">
+          {project.metrics ? (
+            <div className="grid grid-cols-2 gap-6">
+              {project.metrics.map((metric) => (
+                <div key={metric.label}>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-mute mb-1">
+                    {metric.label}
+                  </p>
+                  <p className="text-2xl font-bold text-ink">{metric.value}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-mute mb-3">Stack</p>
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-full border border-line text-ink"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.07, duration: 0.5 }}
+      whileHover={{ y: -8 }}
+      className="rounded-[1.75rem] bg-elevated border border-line p-8 flex flex-col hover:border-accent/40 hover:shadow-card transition-colors"
+    >
+      <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-accent mb-4">
+        {project.type}
+      </p>
+      <h3 className="text-2xl font-bold tracking-tight mb-3">{project.title}</h3>
+      <p className="text-mute leading-relaxed mb-6 flex-1">{project.description}</p>
+      <ul className="space-y-2 mb-6">
+        {project.highlights.map((item) => (
+          <li key={item} className="text-sm text-mute">
+            · {item}
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {project.tech.map((tech) => (
+          <span key={tech} className="text-[11px] px-2.5 py-1 rounded-full border border-line text-mute">
+            {tech}
+          </span>
+        ))}
+      </div>
+      {project.links.length > 0 ? (
+        <div className="flex flex-wrap gap-3 mt-auto">
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-bold hover:text-accent"
             >
-              {/* Background Decoration Icon */}
-              <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
-                {React.cloneElement(project.bgIcon as React.ReactElement<any>, { size: 180 })}
-              </div>
+              {link.label} <FaExternalLinkAlt size={11} />
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </motion.article>
+  );
+}
 
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between mb-8">
-                  {/* Icono superior izquierdo corregido para consistencia */}
-                  <div className={`w-16 h-16 rounded-[1.5rem] ${project.bgColor} flex items-center justify-center text-3xl shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 ${project.color}`}>
-                    {project.icon}
-                  </div>
-                  <span className="text-[9px] font-[900] uppercase tracking-[0.3em] px-4 py-2 bg-white dark:bg-gray-800 rounded-full border border-gray-100 dark:border-gray-700 text-gray-400">
-                    {project.type}
-                  </span>
-                </div>
+export default function Projects() {
+  const featured = projects.find((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
 
-                <h3 className="text-3xl font-[900] dark:text-white mb-4 tracking-tighter">{project.title}</h3>
-
-                <p className="text-gray-500 dark:text-gray-400 mb-8 leading-relaxed font-medium text-lg">
-                  {project.description}
-                </p>
-
-                <div className="space-y-4 mb-10 flex-grow">
-                  {project.highlights.map((h, hIdx) => (
-                    <div key={hIdx} className="flex items-center gap-3 text-sm font-bold text-gray-400 dark:text-gray-500">
-                      <div className="w-1.5 h-1.5 rounded-full bg-teal-500" />
-                      {h}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between pt-8 border-t border-gray-100 dark:border-gray-800">
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t, tIdx) => (
-                      <span key={tIdx} className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded-lg border border-gray-100 dark:border-gray-800">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {project.link && (
-                    <motion.a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      {...({ className: "w-12 h-12 rounded-2xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center shadow-lg transition-colors hover:bg-teal-500 dark:hover:bg-teal-500 dark:hover:text-white" } as any)}
-                    >
-                      <FaExternalLinkAlt size={16} />
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
+  return (
+    <section id="projects" className="relative py-28 md:py-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          index="03"
+          eyebrow="Proyectos"
+          title={
+            <>
+              Lo que he construido.{' '}
+              <span className="text-gradient">Incluido lo publicado.</span>
+            </>
+          }
+        />
+        {featured ? (
+          <div className="mb-6">
+            <Featured project={featured} />
+          </div>
+        ) : null}
+        <div className="grid md:grid-cols-2 gap-5">
+          {rest.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
       </div>

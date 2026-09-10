@@ -1,25 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --accent: #14b8a6;
-  --accent-glow: rgba(20, 184, 166, 0.15);
+  --bg: #f3f5f8;
+  --elevated: #ffffff;
+  --ink: #0c1222;
+  --mute: #5c6578;
+  --line: rgba(12, 18, 34, 0.08);
+  --accent: #0f9d8e;
+  --accent-dim: rgba(15, 157, 142, 0.12);
+  --glow: rgba(15, 157, 142, 0.22);
+  --inverse: #0c1222;
+  --on-inverse: #f7f8fb;
+}
+
+.dark {
+  --bg: #07090d;
+  --elevated: #10141c;
+  --ink: #f3f6fb;
+  --mute: #9aa4b5;
+  --line: rgba(255, 255, 255, 0.08);
+  --accent: #2dd4bf;
+  --accent-dim: rgba(45, 212, 191, 0.12);
+  --glow: rgba(45, 212, 191, 0.22);
+  --inverse: #f3f6fb;
+  --on-inverse: #07090d;
 }
 
 html {
   scroll-behavior: smooth;
-  cursor: default;
 }
 
 body {
-  @apply bg-white text-gray-900 dark:bg-[#030712] dark:text-gray-100;
-  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--ink);
 }
 
 @layer utilities {
@@ -27,69 +54,69 @@ body {
     text-wrap: balance;
   }
 
-  .glass {
-    @apply bg-white/70 dark:bg-[#030712]/70 backdrop-blur-xl border border-white/20 dark:border-white/10;
-  }
-
-  .glass-morphism {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+  .display {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent;
+    background: linear-gradient(120deg, #2dd4bf 0%, #34d399 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .bg-mesh {
-    background-image:
-      radial-gradient(at 0% 0%, hsla(173, 80%, 40%, 0.1) 0, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(190, 80%, 40%, 0.1) 0, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(173, 80%, 40%, 0.1) 0, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(190, 80%, 40%, 0.1) 0, transparent 50%);
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    opacity: 0.018;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .dark .grain {
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+  }
+
+  .aurora {
+    background:
+      radial-gradient(900px 500px at 12% -10%, var(--glow), transparent 55%),
+      radial-gradient(700px 420px at 100% 0%, rgba(56, 189, 248, 0.12), transparent 50%);
   }
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-200 dark:bg-gray-800 rounded-full hover:bg-teal-500 transition-colors;
+  background: var(--line);
+  border-radius: 999px;
 }
 
-/* Animations */
-@keyframes subtle-float {
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 
+@keyframes blink {
   0%,
-  100% {
-    transform: translateY(0px);
-  }
-
   50% {
-    transform: translateY(-10px);
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
   }
 }
 
-.animate-subtle-float {
-  animation: subtle-float 6s ease-in-out infinite;
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }
 
-@keyframes slow-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-slow-spin {
-  animation: slow-spin 20s linear infinite;
+.marquee-track:hover {
+  animation-play-state: paused;
 }

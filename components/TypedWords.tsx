@@ -1,14 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-
-const words = [
-  'Full Stack Developer Junior (Web & Mobile)',
-  'Experto en React, Next.js y React Native',
-  'Especialista en Supabase, Firebase y Cloud Functions',
-  'Arquitectura de Producto End-to-End',
-  'Transformando ideas en soluciones digitales',
-];
+import { typedLines } from '../data/portfolio';
 
 export default function TypedWords() {
   const [displayedText, setDisplayedText] = useState('');
@@ -18,26 +11,27 @@ export default function TypedWords() {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
+    const current = typedLines[wordIndex];
 
-    if (!deleting && charIndex < words[wordIndex].length) {
+    if (!deleting && charIndex < current.length) {
       setIsTyping(true);
       timeout = setTimeout(() => {
-        setDisplayedText((prev) => prev + words[wordIndex][charIndex]);
+        setDisplayedText((prev) => prev + current[charIndex]);
         setCharIndex((prev) => prev + 1);
-      }, 90); // escritura algo rápida pero clara
-    } else if (!deleting && charIndex === words[wordIndex].length) {
+      }, 55);
+    } else if (!deleting && charIndex === current.length) {
       setIsTyping(false);
-      timeout = setTimeout(() => setDeleting(true), 2200); // pausa para lectura
+      timeout = setTimeout(() => setDeleting(true), 2400);
     } else if (deleting && charIndex > 0) {
       setIsTyping(true);
       timeout = setTimeout(() => {
         setDisplayedText((prev) => prev.slice(0, -1));
         setCharIndex((prev) => prev - 1);
-      }, 40); // borrado rápido pero legible
+      }, 28);
     } else if (deleting && charIndex === 0) {
       setDeleting(false);
-      setWordIndex((prev) => (prev + 1) % words.length);
+      setWordIndex((prev) => (prev + 1) % typedLines.length);
       setIsTyping(false);
     }
 
@@ -45,60 +39,13 @@ export default function TypedWords() {
   }, [charIndex, deleting, wordIndex]);
 
   return (
-    <span className="relative inline-block">
+    <span className="inline-flex items-center min-h-[1.4em]" aria-live="polite">
+      <span className="text-accent font-medium">{displayedText || '\u00A0'}</span>
       <span
-        className="text-teal-600 dark:text-teal-400 font-semibold transition-all duration-300 inline-block min-h-[1.5rem] relative group"
-        aria-live="polite"
-      >
-        {/* Efecto de brillo de fondo */}
-        <span className="absolute inset-0 bg-gradient-to-r from-teal-500/10 via-cyan-500/20 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-        
-        {/* Texto con efecto de gradiente mejorado */}
-        <span className="relative z-10 bg-gradient-to-r from-teal-600 via-cyan-500 to-teal-600 dark:from-teal-400 dark:via-cyan-300 dark:to-teal-400 bg-clip-text text-transparent bg-size-200 animate-gradient">
-          {displayedText}
-        </span>
-        
-        {/* Cursor mejorado */}
-        <span className={`inline-block w-0.5 h-6 ml-1 bg-gradient-to-b from-teal-500 to-cyan-500 transition-all duration-150 ${
-          isTyping ? 'animate-pulse' : 'animate-blink'
-        }`} />
-      </span>
-      
-      <style jsx>{`
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-        
-        @keyframes blink {
-          0%, 50% {
-            opacity: 1;
-          }
-          51%, 100% {
-            opacity: 0;
-          }
-        }
-        
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease-in-out infinite;
-        }
-        
-        .animate-blink {
-          animation: blink 1s infinite;
-        }
-        
-        .bg-size-200 {
-          background-size: 200% 200%;
-        }
-      `}</style>
+        className={`ml-1 inline-block h-[0.95em] w-[2px] bg-accent ${
+          isTyping ? 'opacity-100' : 'animate-blink'
+        }`}
+      />
     </span>
   );
 }

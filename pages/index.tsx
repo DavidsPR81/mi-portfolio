@@ -8,6 +8,7 @@ import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
+import ScrollProgress from '../components/ScrollProgress';
 
 type Theme = 'light' | 'dark' | 'auto';
 
@@ -15,8 +16,7 @@ export default function Home() {
   const [theme, setTheme] = useState<Theme>('auto');
 
   function isDaytime() {
-    const hour = new Date().getHours();
-    return hour >= 7 && hour < 20;
+    return new Date().getHours() >= 7 && new Date().getHours() < 20;
   }
 
   function applyTheme(currentTheme: Theme) {
@@ -24,11 +24,9 @@ export default function Home() {
       document.documentElement.classList.add('dark');
     } else if (currentTheme === 'light') {
       document.documentElement.classList.remove('dark');
-    } else if (currentTheme === 'auto') {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isNightTime = !isDaytime();
-      
-      if (prefersDark || isNightTime) {
+    } else {
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      if (prefersDark || !isDaytime()) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
@@ -45,17 +43,12 @@ export default function Home() {
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleSystemChange = () => {
-      if (theme === 'auto') {
-        applyTheme('auto');
-      }
+      if (theme === 'auto') applyTheme('auto');
     };
-    
-    mediaQuery.addEventListener('change', handleSystemChange);
 
+    mediaQuery.addEventListener('change', handleSystemChange);
     const timeInterval = setInterval(() => {
-      if (theme === 'auto') {
-        applyTheme('auto');
-      }
+      if (theme === 'auto') applyTheme('auto');
     }, 60000);
 
     return () => {
@@ -71,10 +64,11 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-white text-gray-800 dark:bg-[#030712] dark:text-gray-100 transition-colors duration-300 min-h-screen">
+    <div className="bg-page text-ink min-h-screen">
+      <div className="grain" />
+      <ScrollProgress />
       <Navbar theme={theme} onThemeChange={handleThemeChange} />
-
-      <main className="max-w-[1920px] mx-auto">
+      <main>
         <Hero />
         <About />
         <Experience />
