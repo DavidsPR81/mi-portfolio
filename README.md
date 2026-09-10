@@ -19,7 +19,7 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000).
 
-El CV está en `public/curriculummayo1.pdf`. Cuando haya uno nuevo, sustituye ese archivo y haz commit.
+El CV está en `public/curriculumseptiembre1.pdf`. Cuando haya uno nuevo, sustituye ese archivo y haz commit.
 
 ## Contenido
 

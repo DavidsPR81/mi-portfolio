@@ -7,7 +7,7 @@ export const site = {
   description:
     'Portfolio de David Pérez Rodríguez. Full Stack Junior (Web & Mobile). Desarrollo de aplicaciones web y móviles.',
   location: 'Cádiz, España',
-  cv: '/curriculummayo1.pdf',
+  cv: '/curriculumseptiembre1.pdf',
   photo: '/fotocurriculum1-Photoroom.jpg',
   email: 'david170481@icloud.com',
   phone: '+34 655 326 227',
