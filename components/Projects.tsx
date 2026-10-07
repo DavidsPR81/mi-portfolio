@@ -165,7 +165,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   const featured = projects.find((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
+  const rest = projects.filter((p) => p !== featured);
 
   return (
     <section id="projects" className="relative py-28 md:py-32 px-6">

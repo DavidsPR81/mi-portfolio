@@ -7,7 +7,7 @@ export const site = {
   description:
     'Portfolio de David Pérez Rodríguez. Full Stack Junior (Web & Mobile). Desarrollo de aplicaciones web y móviles.',
   location: 'Cádiz, España',
-  cv: '/curriculumseptiembre1.pdf',
+  cv: '/curriculum-david-perez.pdf',
   photo: '/fotocurriculum1-Photoroom.jpg',
   email: 'david170481@icloud.com',
   phone: '+34 655 326 227',
@@ -71,13 +71,13 @@ export const experience: ExperienceItem[] = [
   {
     kind: 'Trabajo',
     title: 'Desarrollador Full Stack',
-    company: 'TVSmartMatch',
+    company: 'TVSmartMatch PRO',
     period: '2024 — Actualidad',
     year: '2024',
     location: 'Remoto',
     description:
-      'Plataforma web y móvil de comparación y recomendación de televisores. Next.js, React Native, Supabase y automatización en Google Cloud.',
-    skills: ['Next.js', 'React Native', 'Supabase', 'GCP'],
+      'App móvil de recomendación y comparación de televisores con React Native, Expo y Supabase, pipeline de datos automatizado y web oficial en Astro.',
+    skills: ['React Native', 'Supabase', 'Astro', 'GitHub Actions'],
   },
   {
     kind: 'Formación',
@@ -144,7 +144,7 @@ export const projects: Project[] = [
       'Publicada en Google Play',
       '12 niveles, progreso local y modo offline',
       'IAP Premium de pago único',
-      'Tests pedagógicos + repo público para revisión técnica',
+      'Tests pedagógicos + caso de estudio público',
     ],
     metrics: [
       { label: 'Plataforma', value: 'Android' },
@@ -159,24 +159,28 @@ export const projects: Project[] = [
       },
       { label: 'Web', href: 'https://aprendefonemas.netlify.app' },
       {
-        label: 'Código',
-        href: 'https://github.com/DavidsPR81/aprende-fonemas-portfolio',
+        label: 'Caso de estudio',
+        href: 'https://github.com/DavidsPR81/aprende-fonemas-caso-estudio',
       },
     ],
   },
   {
-    title: 'TVSmartMatch',
+    title: 'TVSmartMatch PRO',
     description:
-      'Plataforma de comparación y recomendación de televisores con arquitectura web y móvil.',
-    type: 'Web & Mobile',
-    tech: ['Next.js', 'React Native', 'Supabase', 'GCP'],
+      'App móvil (iOS y Android) que ayuda a elegir televisor: recomienda según estancia, uso y presupuesto, compara modelos y enlaza a ofertas reales. Incluye pipeline de datos multimarca y una web oficial migrada de React a Astro.',
+    type: 'Mobile & Web · En pruebas',
+    featured: true,
+    tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Astro', 'Netlify'],
     highlights: [
-      'Autenticación y perfiles',
-      'Base de datos relacional',
-      'Landing SEO',
-      'Cloud Functions',
+      'Recomendador y comparador de televisores',
+      'Pipeline de datos de 8 marcas con GitHub Actions',
+      'Web migrada de SPA React a Astro estático (SEO y rendimiento)',
+      'Páginas legales, soporte y gestión de cuenta para las tiendas',
     ],
-    links: [{ label: 'Visitar', href: 'https://tvsmartmatch.com' }],
+    links: [
+      { label: 'Web', href: 'https://tvsmartmatch.com' },
+      { label: 'Caso de estudio', href: 'https://github.com/DavidsPR81/tvsmartmatchpro-caso-estudio' },
+    ],
   },
   {
     title: 'Portfolio v3',
@@ -189,7 +193,9 @@ export const projects: Project[] = [
       'Animaciones con Framer Motion',
       'Contenido alineado con el currículum',
     ],
-    links: [],
+    links: [
+      { label: 'Web', href: 'https://david-miportfolio.netlify.app' },
+    ],
   },
   {
     title: 'FotoGo',

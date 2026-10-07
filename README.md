@@ -43,7 +43,7 @@ Portfolio personal de **David Pérez Rodríguez**, Full Stack Developer Junior (
 **Mantenimiento sencillo**
 
 - Todos los textos, proyectos, experiencia y enlaces están en un único archivo: `data/portfolio.ts`.
-- El CV descargable se encuentra en `public/curriculumseptiembre1.pdf`.
+- El CV descargable se encuentra en `public/curriculum-david-perez.pdf`.
 
 ---
 
@@ -111,6 +111,8 @@ Abre http://localhost:3000.
 | `npm run dev` | Arranca el servidor de desarrollo |
 | `npm run build` | Genera la versión de producción |
 | `npm run start` | Sirve la versión de producción ya generada |
+
+El CV está en `public/curriculum-david-perez.pdf`. Cuando haya uno nuevo, sustituye ese archivo y haz commit.
 
 ---
 
