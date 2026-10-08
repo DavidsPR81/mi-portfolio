@@ -145,5 +145,5 @@ El Puerto de Santa María (Cádiz), España
 
 **Otros proyectos**
 
-- **Aprende Fonemas:** app Android publicada en Google Play · [web](https://aprendefonemas.netlify.app) · [código](https://github.com/DavidsPR81/aprende-fonemas-portfolio)
+- **Aprende Fonemas:** app Android publicada en Google Play · [web](https://aprendefonemas.netlify.app) · [caso de estudio](https://github.com/DavidsPR81/aprende-fonemas-portfolio)
 - **TVSmartMatch PRO:** [tvsmartmatch.com](https://tvsmartmatch.com) · [caso de estudio](https://github.com/DavidsPR81/tvsmartmatchpro-caso-estudio)
