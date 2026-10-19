@@ -139,12 +139,13 @@ export const projects: Project[] = [
       'App educativa de conciencia fonológica para niños de 3–7 años (español de España). Sesiones cortas y offline: fonemas, sílabas, rimas, fusión de sonidos y primeras frases. Freemium (niveles 1–4 gratis, 5–12 Premium de pago único), sin publicidad ni registro.',
     type: 'Mobile · Publicada',
     featured: true,
-    tech: ['React Native', 'Expo SDK 54', 'Android', 'IAP', 'Jest', 'Netlify'],
+    tech: ['React Native', 'Expo SDK 57', 'Android', 'IAP', 'Jest', 'Netlify'],
     highlights: [
       'Publicada en Google Play',
       '12 niveles, progreso local y modo offline',
       'IAP Premium de pago único',
       'Tests pedagógicos + caso de estudio público',
+      'v1.1 en prueba cerrada: Partida de hoy y recordatorio local sin Firebase',
     ],
     metrics: [
       { label: 'Plataforma', value: 'Android' },
