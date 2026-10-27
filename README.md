@@ -27,7 +27,7 @@ Portfolio personal de **David Pérez Rodríguez**, Full Stack Developer Junior (
 - **Inicio:** presentación con texto animado tipo máquina de escribir, foto, botón **Descargar CV** (PDF), enlaces a GitHub y LinkedIn y una cinta animada con las tecnologías principales.
 - **Sobre mí:** resumen del perfil, ubicación, especialidad, cifras clave y habilidades personales.
 - **Trayectoria:** línea de tiempo con experiencia laboral y formación.
-- **Proyectos:** *Aprende Fonemas* como proyecto destacado (enlaces a Google Play, web y código), más TVSmartMatch, este portfolio, FotoGo e Intranet Rota.
+- **Proyectos:** *Aprende Fonemas* como proyecto destacado (enlaces a Google Play, web y caso de estudio), más TVSmartMatch, este portfolio, FotoGo e Intranet Rota.
 - **Competencias:** tecnologías agrupadas (Frontend, Mobile, Backend, Cloud) y 4 certificaciones profesionales de Google.
 - **Contacto:** tarjetas con enlaces directos (email, LinkedIn, GitHub…). No usa formulario.
 
@@ -145,5 +145,5 @@ El Puerto de Santa María (Cádiz), España
 
 **Otros proyectos**
 
-- **Aprende Fonemas:** app Android publicada en Google Play · [web](https://aprendefonemas.netlify.app) · [código](https://github.com/DavidsPR81/aprende-fonemas-portfolio)
+- **Aprende Fonemas:** app Android publicada en Google Play · [web](https://aprendefonemas.netlify.app) · [caso de estudio](https://github.com/DavidsPR81/aprende-fonemas-caso-estudio)
 - **TVSmartMatch PRO:** [tvsmartmatch.com](https://tvsmartmatch.com) · [caso de estudio](https://github.com/DavidsPR81/tvsmartmatchpro-caso-estudio)
