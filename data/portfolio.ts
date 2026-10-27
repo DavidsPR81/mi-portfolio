@@ -145,7 +145,7 @@ export const projects: Project[] = [
       '12 niveles, progreso local y modo offline',
       'IAP Premium de pago único',
       'Tests pedagógicos + caso de estudio público',
-      'v1.1 en prueba cerrada: Partida de hoy y recordatorio local sin Firebase',
+      'v1.1 (lanzamiento previsto el 5 de noviembre de 2026): Partida de hoy (repaso diario) y recordatorio local sin Firebase',
     ],
     metrics: [
       { label: 'Plataforma', value: 'Android' },
