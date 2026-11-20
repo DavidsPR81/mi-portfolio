@@ -33,8 +33,8 @@ export default function About() {
           eyebrow="Sobre mí"
           title={
             <>
-              Experiencia previa en otro sector.{' '}
-              <span className="text-gradient">Ahora, desarrollo.</span>
+              17 años liderando equipos.{' '}
+              <span className="text-gradient">Ahora, desarrollo de software.</span>
             </>
           }
         />

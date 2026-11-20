@@ -40,7 +40,7 @@ export const marqueeItems = [
 ];
 
 export const stats = [
-  { value: '17', suffix: 'años', label: 'Exp. previa (otro sector)' },
+  { value: '17', suffix: 'años', label: 'Liderando equipos (otro sector)' },
   { value: '2000', suffix: 'h', label: 'Formación DAM' },
   { value: '04', suffix: 'certs', label: 'Certificaciones Google' },
   { value: '05', suffix: 'proy.', label: 'Proyectos desarrollados' },
@@ -61,14 +61,25 @@ type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     kind: 'Trabajo',
-    title: 'Desarrollador Full Stack (proyectos propios)',
-    company: 'Aprende Fonemas · TVSmartMatch PRO',
+    title: 'Desarrollador Full Stack (proyecto propio)',
+    company: 'Aprende Fonemas',
+    period: '2026 — Actualidad',
+    year: '2026',
+    location: 'Remoto',
+    description:
+      'App educativa de conciencia fonológica para niños de 3–7 años, desarrollada de principio a fin y publicada en Google Play. Freemium offline, compra Premium (IAP) y 12 niveles pedagógicos.',
+    skills: ['React Native', 'Expo', 'IAP', 'Jest'],
+  },
+  {
+    kind: 'Trabajo',
+    title: 'Desarrollador Full Stack (proyecto propio)',
+    company: 'TVSmartMatch PRO',
     period: '2024 — Actualidad',
     year: '2024',
     location: 'Remoto',
     description:
-      'Desarrollo de punta a punta de dos productos propios: Aprende Fonemas, app educativa de conciencia fonológica publicada en Google Play (React Native y Expo), y TVSmartMatch PRO, app de recomendación y comparación de televisores (React Native, Expo, TypeScript y Supabase), en fase de pruebas / próximo lanzamiento, con más de 1.000 tests automatizados, integración continua en GitHub Actions y web oficial en Astro.',
-    skills: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Astro', 'GitHub Actions'],
+      'App móvil de recomendación y comparación de televisores (React Native, Expo, TypeScript y Supabase), en fase de pruebas. Pipeline de datos automatizado, más de 1.000 tests automatizados, integración continua en GitHub Actions y web oficial en Astro.',
+    skills: ['React Native', 'TypeScript', 'Supabase', 'Astro', 'GitHub Actions'],
   },
   {
     kind: 'Formación',
@@ -102,7 +113,7 @@ export const experience: ExperienceItem[] = [
     year: '2007',
     location: 'Cádiz, España',
     description:
-      'Experiencia profesional previa (otro sector): gestión de equipos, operaciones y toma de decisiones. Dirección de equipos, KPIs comerciales y optimización operativa. Incremento de ventas del 10%.',
+      'Otro sector. Dirección de equipos, gestión de operaciones, KPIs comerciales y toma de decisiones. Incremento de ventas del 10%.',
     skills: ['Liderazgo', 'KPIs', 'Operaciones'],
   },
 ];
@@ -159,7 +170,7 @@ export const projects: Project[] = [
   {
     title: 'TVSmartMatch PRO',
     description:
-      'App móvil (iOS y Android) que ayuda a elegir televisor: recomienda según estancia, uso y presupuesto, compara modelos y enlaza a ofertas reales. En fase de pruebas / próximo lanzamiento. Incluye pipeline de datos multimarca y una web oficial en Astro.',
+      'App móvil (iOS y Android) que ayuda a elegir televisor: recomienda según estancia, uso y presupuesto, compara modelos y enlaza a ofertas reales. En fase de pruebas. Incluye pipeline de datos multimarca y una web oficial en Astro.',
     type: 'Mobile & Web · En fase de pruebas',
     featured: true,
     tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Astro', 'Netlify'],
@@ -167,7 +178,7 @@ export const projects: Project[] = [
       'Recomendador y comparador de televisores',
       'Más de 1.000 tests automatizados e integración continua en GitHub Actions',
       'Pipeline de datos de 8 marcas con GitHub Actions',
-      'Web oficial en Astro (SEO y rendimiento)',
+      'Web oficial migrada de SPA React a Astro (SEO y rendimiento)',
       'Páginas legales, soporte y gestión de cuenta para las tiendas',
     ],
     links: [
