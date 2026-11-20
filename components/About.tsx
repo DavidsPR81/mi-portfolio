@@ -34,7 +34,7 @@ export default function About() {
           title={
             <>
               17 años liderando equipos.{' '}
-              <span className="text-gradient">Ahora, código.</span>
+              <span className="text-gradient">Ahora, desarrollo de software.</span>
             </>
           }
         />
@@ -47,8 +47,10 @@ export default function About() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-xl md:text-2xl font-semibold leading-snug text-ink">
-              Formación DAM y stack en React, Next.js y React Native. Paso de la
-              operación comercial al desarrollo end-to-end.
+              Formación DAM y desarrollo web y mobile (React Native, Expo,
+              TypeScript, Supabase y Next.js). Tras una experiencia profesional
+              previa en otro sector —gestión de equipos, operaciones y toma de
+              decisiones— paso al desarrollo end-to-end.
             </p>
 
             <div className="mt-8 grid sm:grid-cols-2 gap-4">

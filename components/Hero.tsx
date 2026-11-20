@@ -23,6 +23,13 @@ export default function Hero() {
       <Head>
         <title>{site.title}</title>
         <meta name="description" content={site.description} />
+        <meta property="og:title" content={site.title} />
+        <meta property="og:description" content={site.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={site.url} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={site.title} />
+        <meta name="twitter:description" content={site.description} />
       </Head>
 
       <section id="home" className="relative min-h-screen aurora overflow-hidden pt-28 pb-8">

@@ -1,6 +1,6 @@
 # Portfolio V3 · David Pérez Rodríguez
 
-Portfolio personal de **David Pérez Rodríguez**, Full Stack Developer Junior (web y mobile). Reúne en una sola página su perfil, trayectoria, proyectos, competencias y contacto.
+Portfolio personal de **David Pérez Rodríguez**, Desarrollador Full Stack · Web y Mobile | React Native · Expo · TypeScript · Supabase. Reúne en una sola página su perfil, trayectoria, proyectos, competencias y contacto.
 
 [![Ver web](https://img.shields.io/badge/Ver_web-david--miportfolio.netlify.app-0f9d8e?style=for-the-badge&logo=netlify&logoColor=white)](https://david-miportfolio.netlify.app/)
 
@@ -134,7 +134,7 @@ El repositorio no incluye `netlify.toml`, así que la configuración del build s
 
 ## Autor
 
-**David Pérez Rodríguez** · Full Stack Developer Junior (React, Next.js, React Native)
+**David Pérez Rodríguez** · Desarrollador Full Stack · Web y Mobile | React Native · Expo · TypeScript · Supabase
 CFGS Desarrollo de Aplicaciones Multiplataforma (Ilerna) · Curso Universitario Full Stack Developer (UCAM)
 El Puerto de Santa María (Cádiz), España
 
