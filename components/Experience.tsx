@@ -41,7 +41,9 @@ export default function Experience() {
                       className={`text-[11px] font-semibold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full ${
                         item.kind === 'Trabajo'
                           ? 'bg-accent-dim text-accent'
-                          : 'bg-line text-mute'
+                          : item.kind === 'Experiencia previa'
+                            ? 'bg-line text-ink'
+                            : 'bg-line text-mute'
                       }`}
                     >
                       {item.kind}

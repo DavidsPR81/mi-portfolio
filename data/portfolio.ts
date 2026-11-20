@@ -1,11 +1,13 @@
 export const site = {
   name: 'David Pérez',
   fullName: 'David Pérez Rodríguez',
-  role: 'Full Stack Developer Junior',
-  specialty: 'Web & Mobile',
-  title: 'David Pérez Rodríguez | Full Stack Developer Junior',
+  role: 'Desarrollador Full Stack',
+  specialty: 'Web y Mobile | React Native · Expo · TypeScript · Supabase',
+  title:
+    'David Pérez Rodríguez | Desarrollador Full Stack · Web y Mobile | React Native · Expo · TypeScript · Supabase',
   description:
-    'Portfolio de David Pérez Rodríguez. Full Stack Junior (Web & Mobile). Desarrollo de aplicaciones web y móviles.',
+    'Portfolio de David Pérez Rodríguez. Desarrollador Full Stack · Web y Mobile | React Native · Expo · TypeScript · Supabase. Desarrollo de aplicaciones web y móviles.',
+  url: 'https://david-miportfolio.netlify.app',
   location: 'Cádiz, España',
   cv: '/curriculum-david-perez.pdf',
   photo: '/fotocurriculum1-Photoroom.jpg',
@@ -17,9 +19,9 @@ export const site = {
 };
 
 export const typedLines = [
-  'Full Stack Developer Junior',
-  'Web & Mobile',
-  'React · Next.js · React Native',
+  'Desarrollador Full Stack',
+  'Web y Mobile',
+  'React Native · Expo · TypeScript · Supabase',
 ];
 
 export const marqueeItems = [
@@ -38,14 +40,14 @@ export const marqueeItems = [
 ];
 
 export const stats = [
-  { value: '17', suffix: 'años', label: 'Gestión de equipos' },
+  { value: '17', suffix: 'años', label: 'Exp. previa (otro sector)' },
   { value: '2000', suffix: 'h', label: 'Formación DAM' },
   { value: '04', suffix: 'certs', label: 'Certificaciones Google' },
   { value: '05', suffix: 'proy.', label: 'Proyectos desarrollados' },
 ];
 
 type ExperienceItem = {
-  kind: 'Trabajo' | 'Formación';
+  kind: 'Trabajo' | 'Formación' | 'Experiencia previa';
   title: string;
   company: string;
   period: string;
@@ -59,25 +61,14 @@ type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     kind: 'Trabajo',
-    title: 'Fundador y desarrollador',
-    company: 'Aprende Fonemas',
-    period: '2026 — Actualidad',
-    year: '2026',
-    location: 'Remoto',
-    description:
-      'App educativa de conciencia fonológica para niños de 3–7 años, publicada en Google Play. Freemium offline, IAP Premium y 12 niveles pedagógicos.',
-    skills: ['React Native', 'Expo', 'IAP', 'Jest'],
-  },
-  {
-    kind: 'Trabajo',
-    title: 'Desarrollador Full Stack',
-    company: 'TVSmartMatch PRO',
+    title: 'Desarrollador Full Stack (proyectos propios)',
+    company: 'Aprende Fonemas · TVSmartMatch PRO',
     period: '2024 — Actualidad',
     year: '2024',
     location: 'Remoto',
     description:
-      'App móvil de recomendación y comparación de televisores con React Native, Expo y Supabase, pipeline de datos automatizado y web oficial en Astro.',
-    skills: ['React Native', 'Supabase', 'Astro', 'GitHub Actions'],
+      'Desarrollo de punta a punta de dos productos propios: Aprende Fonemas, app educativa de conciencia fonológica publicada en Google Play (React Native y Expo), y TVSmartMatch PRO, app de recomendación y comparación de televisores (React Native, Expo, TypeScript y Supabase), en fase de pruebas / próximo lanzamiento, con más de 1.000 tests automatizados, integración continua en GitHub Actions y web oficial en Astro.',
+    skills: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Astro', 'GitHub Actions'],
   },
   {
     kind: 'Formación',
@@ -104,14 +95,14 @@ export const experience: ExperienceItem[] = [
     skills: ['DAM', 'Mobile', 'SQL'],
   },
   {
-    kind: 'Trabajo',
+    kind: 'Experiencia previa',
     title: 'Responsable de Departamento',
     company: 'MediaMarkt Bahía de Cádiz',
     period: '2007 — 2024',
     year: '2007',
     location: 'Cádiz, España',
     description:
-      'Dirección de equipos, KPIs comerciales y optimización operativa. Incremento de ventas del 10%.',
+      'Experiencia profesional previa (otro sector): gestión de equipos, operaciones y toma de decisiones. Dirección de equipos, KPIs comerciales y optimización operativa. Incremento de ventas del 10%.',
     skills: ['Liderazgo', 'KPIs', 'Operaciones'],
   },
 ];
@@ -139,7 +130,7 @@ export const projects: Project[] = [
       'App educativa de conciencia fonológica para niños de 3–7 años (español de España). Sesiones cortas y offline: fonemas, sílabas, rimas, fusión de sonidos y primeras frases. Freemium (niveles 1–4 gratis, 5–12 Premium de pago único), sin publicidad ni registro.',
     type: 'Mobile · Publicada',
     featured: true,
-    tech: ['React Native', 'Expo SDK 57', 'Android', 'IAP', 'Jest', 'Netlify'],
+    tech: ['React Native', 'Expo SDK 54', 'Android', 'IAP', 'Jest', 'Netlify'],
     highlights: [
       'Publicada en Google Play',
       '12 niveles, progreso local y modo offline',
@@ -168,14 +159,15 @@ export const projects: Project[] = [
   {
     title: 'TVSmartMatch PRO',
     description:
-      'App móvil (iOS y Android) que ayuda a elegir televisor: recomienda según estancia, uso y presupuesto, compara modelos y enlaza a ofertas reales. Incluye pipeline de datos multimarca y una web oficial migrada de React a Astro.',
-    type: 'Mobile & Web · En pruebas',
+      'App móvil (iOS y Android) que ayuda a elegir televisor: recomienda según estancia, uso y presupuesto, compara modelos y enlaza a ofertas reales. En fase de pruebas / próximo lanzamiento. Incluye pipeline de datos multimarca y una web oficial en Astro.',
+    type: 'Mobile & Web · En fase de pruebas',
     featured: true,
     tech: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Astro', 'Netlify'],
     highlights: [
       'Recomendador y comparador de televisores',
+      'Más de 1.000 tests automatizados e integración continua en GitHub Actions',
       'Pipeline de datos de 8 marcas con GitHub Actions',
-      'Web migrada de SPA React a Astro estático (SEO y rendimiento)',
+      'Web oficial en Astro (SEO y rendimiento)',
       'Páginas legales, soporte y gestión de cuenta para las tiendas',
     ],
     links: [
@@ -201,8 +193,8 @@ export const projects: Project[] = [
   {
     title: 'FotoGo',
     description:
-      'Red social de fotografía con rankings, concursos y automatización backend.',
-    type: 'Mobile App',
+      'Colaboración en una red social de fotografía. Aporté trabajo full stack en partes concretas (gestión de contenido, lógica de concursos y UI), con React Native y Firebase.',
+    type: 'Mobile App · Colaboración',
     tech: ['React Native', 'Firebase', 'Cloud Functions', 'TypeScript'],
     highlights: [
       'Gestión de contenido',
